@@ -1,0 +1,27 @@
+version: "2"
+services:
+  httpd:
+    build:
+      context: "./httpd"
+    depends_on:
+      - "fcgi"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes_from:
+      - fcgi
+  db:
+    build:
+      context: "./db"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+    image: "percona:latest"
+    ports:
+      - "3306:3306"
+  fcgi:
+    build:
+      context: "./fcgi"
+    depends_on:
+      - "db"
+    volumes:
+      - "./srv/htdocs:/srv/htdocs"
