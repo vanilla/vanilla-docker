@@ -15,3 +15,5 @@ RUN apt-get update \
     && docker-php-ext-install gd mbstring mcrypt pdo pdo_mysql \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
+
+RUN ln -s /srv/vanilla-repositories/vanilla /srv/htdocs
