@@ -11,3 +11,7 @@ _notes
 .settings
 .buildpath
 .idea
+docker-compose.yml
+/logs/mysql/*
+/logs/nginx/*
+/logs/php-fpm/*

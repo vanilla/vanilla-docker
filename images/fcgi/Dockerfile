@@ -1,8 +1,11 @@
-FROM php:5.4-fpm
+FROM php:7.0-fpm
+
 COPY usr/local/etc/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY usr/local/etc/php/conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
-RUN apt-get update && apt-get install -y \
+
+RUN apt-get update \
+    && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
