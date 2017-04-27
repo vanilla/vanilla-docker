@@ -11,19 +11,19 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - shared:/var/lib/mysql
+      - datastorage:/var/lib/mysql
       - ./logs/mysql:/var/log/mysql
 
   fcgi:
     build:
       context: "./images/fcgi"
     container_name: vanilladocker_fcgi
-    depends_on:
-      - "db"
     volumes:
       - {PATH_TO_VANILLA_REPOSITORIES}:/src/vanilla-repositories
       - shared:/var/run
       - ./logs/php-fpm:/var/log/php-fpm
+    extra_hosts:
+      - machinehost:${VD_HOST_IP}
 
   httpd:
     build:
@@ -31,6 +31,7 @@ services:
     container_name: vanilladocker_httpd
     depends_on:
       - "fcgi"
+      - "db"
     ports:
       - "80:80"
       - "443:443"
@@ -40,4 +41,6 @@ services:
       - ./logs/nginx:/var/log/nginx
 
 volumes:
+  datastorage:
+    external: true
   shared:
