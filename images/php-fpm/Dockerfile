@@ -16,11 +16,12 @@ RUN apt-get update \
 # Cleanup apt
 RUN rm -rf /var/lib/apt/lists/*
 
-COPY ./etc/php-fpm.conf /etc/php-fpm.conf
-COPY ./etc/php/conf.d/00-php.ini /etc/php/conf.d/00-php.ini
-COPY ./etc/php/conf.d/10-xdebug.ini /etc/php/conf.d/10-xdebug.ini
-COPY ./etc/php/conf.d/vanilla-docker-sendmail.ini /etc/php/conf.d/vanilla-docker-sendmail.ini
+COPY ./usr/local/etc/php-fpm.conf /usr/local/etc/php-fpm.conf
+COPY ./usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
+COPY ./usr/local/etc/php/conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
+COPY ./usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
+RUN mkdir -p /shared/var/run/
 RUN ln -s /srv/vanilla-repositories/vanilla /srv/htdocs
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
