@@ -11,5 +11,11 @@ fi
 # See https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4
 ifconfig lo0 alias 192.0.2.1
 
+# Allows us to use database as the hostname to connect to the database.
+database=$(grep database /etc/hosts)
+if [ ! -n "$database" ]; then
+  echo '127.0.0.1 database' >> /etc/hosts
+fi
+
 # https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-file-as-a-data-volume#creating-and-mounting-a-data-volume-container
 docker volume create --name=datastorage --label="Persistent data storage"
