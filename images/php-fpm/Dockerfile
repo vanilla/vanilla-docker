@@ -23,6 +23,7 @@ COPY ./usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini /usr/local/etc/php/c
 
 RUN mkdir -p /shared/var/run/
 RUN ln -s /srv/vanilla-repositories/vanilla /srv/htdocs
+RUN ln -s /srv/vanilla-repositories/vanilla_unittests /srv/htdocs-test
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 

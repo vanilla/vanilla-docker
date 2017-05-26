@@ -12,6 +12,9 @@ _notes
 .buildpath
 .idea
 docker-compose.yml
-/logs/mysql/*
-/logs/nginx/*
-/logs/php-fpm/*
+/logs/*
+!/logs/httpd/.gitkeep
+!/logs/mysql/.gitkeep
+!/logs/nginx/.gitkeep
+!/logs/php-fpm/.gitkeep
+!/logs/sphinx/.gitkeep
