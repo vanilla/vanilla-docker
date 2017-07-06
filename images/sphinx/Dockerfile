@@ -1,12 +1,17 @@
 FROM leodido/sphinxsearch:2.2.10
 
-COPY ./usr/local/etc/sphinx.conf, /usr/local/etc/sphinx.conf
-COPY ./usr/local/etc/sphinx/searchd.conf, /usr/local/etc/sphinx/searchd.conf
-COPY ./usr/local/etc/sphinx/conf.d, /usr/local/etc/sphinx/conf.d
-COPY ./usr/local/etc/sphinx/data/stops.txt, /usr/local/etc/sphinx/data/stops.txt
+RUN ["mkdir", "-p", "/usr/local/etc/sphinx"]
+RUN ["mkdir", "-p", "/usr/local/etc/sphinx/conf.d"]
+RUN ["mkdir", "-p", "/usr/local/etc/sphinx/data"]
 
-ENTRYPOINT
+COPY ./root/startup.sh /root/startup.sh
+COPY ./usr/local/etc/sphinx.conf /usr/local/etc/sphinx.conf
+COPY ./usr/local/etc/sphinx/searchd.conf /usr/local/etc/sphinx/searchd.conf
+COPY ./usr/local/etc/sphinx/conf.d /usr/local/etc/sphinx/conf.d
+COPY ./usr/local/etc/sphinx/data/stops.txt /usr/local/etc/sphinx/data/stops.txt
 
-CMD indexer --all && searchd --nodetach
+RUN chmod +x /root/startup.sh
+
+CMD /root/startup.sh
 
 EXPOSE 9312

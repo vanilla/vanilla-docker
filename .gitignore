@@ -11,7 +11,6 @@ _notes
 .settings
 .buildpath
 .idea
-docker-compose.yml
 /logs/*
 !/logs/httpd/.gitkeep
 !/logs/mysql/.gitkeep
