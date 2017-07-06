@@ -11,6 +11,10 @@ _notes
 .settings
 .buildpath
 .idea
+/resources/etc/nginx/sites-enabled/*
+!/resources/etc/nginx/sites-enabled/sso.dev.conf
+!/resources/etc/nginx/sites-enabled/vanilla.dev.conf
+!/resources/etc/nginx/sites-enabled/vanilla.test.conf
 /logs/*
 !/logs/httpd/.gitkeep
 !/logs/mysql/.gitkeep
