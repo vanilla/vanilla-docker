@@ -1,5 +1,5 @@
 # Pull base image.
-FROM nginx:latest
+FROM nginx:1.13
 
 COPY ./etc/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./etc/nginx/fastcgi.conf /etc/nginx/fastcgi.conf
