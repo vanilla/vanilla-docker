@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
     db:
         build:
@@ -26,7 +26,7 @@ services:
         volumes:
             - shared:/shared
             - ./logs/httpd:/var/log/httpd
-            - ~/workspace/repos:/srv/vanilla-repositories
+            - ../:/srv/vanilla-repositories
 
     nginx:
         build:
@@ -44,7 +44,7 @@ services:
             - ./resources/etc/nginx/sites-available:/etc/nginx/sites-available
             - ./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
             - ./logs/nginx:/var/log/nginx
-            - ~/workspace/repos:/srv/vanilla-repositories
+            - ../:/srv/vanilla-repositories
         extra_hosts:
             - vanilla.dev:127.0.0.1
 
@@ -59,7 +59,7 @@ services:
             - shared:/shared
             - ./logs/php-fpm:/var/log/php-fpm
             - ./resources/sphinx:/sphinx
-            - ~/workspace/repos:/srv/vanilla-repositories
+            - ../:/srv/vanilla-repositories
         extra_hosts:
             - machinehost:192.0.2.1
             - vanilla.dev:192.0.2.1
