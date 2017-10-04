@@ -15,6 +15,10 @@ collation_server = utf8mb4_unicode_ci
 
 max_allowed_packet = 100M
 
+# Disable query caching.
+query_cache_type = 0
+query_cache_size = 0
+
 [mysqldump]
 max_allowed_packet = 100M
 

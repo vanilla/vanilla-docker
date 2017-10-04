@@ -8,4 +8,4 @@ COPY ./etc/nginx/cert/ssl.self.key /etc/nginx/cert/ssl.self.key
 
 RUN ln -s /srv/vanilla-repositories/vanilla /srv/htdocs
 RUN ln -s /srv/vanilla-repositories/vanilla_unittests /srv/htdocs-test
-RUN ln -s /srv/vanilla-repositories/internal/login /srv/sso
+RUN ln -s /srv/vanilla-repositories/stub-sso-providers /srv/sso
