@@ -25,6 +25,7 @@ services:
             - "9443:9443"
         volumes:
             - shared:/shared
+            - ./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d
             - ./logs/httpd:/var/log/httpd
             - ../:/srv/vanilla-repositories
 
