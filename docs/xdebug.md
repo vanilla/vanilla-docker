@@ -1,16 +1,25 @@
-# Make PhpStorm work with Xdebug
+## Make Xdebug work with PhpStorm
 
-`Languages & Frameworks` > `PHP` > `Debug` > `DBGp Proxy`
+`Tools DBGp Proxy` > `Configuration`
 
 - `IDE Key`: PHPSTORM
-- `Host`: machinehost
+- `Host`: 127.0.0.1
 - `Port`: 9000
 
 Install an [Xdebug helper](https://confluence.jetbrains.com/display/PhpStorm/Browser+Debugging+Extensions)
 on your browser and set the key to PHPSTORM.
 
-You can now click on the `Start listening for PHP Debug connection` button in PhpStorm and enable the browser extension.
-On the first run it will ask you to map your local directories to the docker directories, 
-but after that nothing will be required anymore.
+You can now click on `Run` > `Start listening for PHP Debug connection` in PhpStorm and enable the browser extension.
+Put a debug break point.
 
 Have fun!
+
+### Symlinks mapping
+
+After putting a breakpoint in a file that was symlinked you will probably encounter this: 
+
+![Xdebug Mapping needed](./images/xdebug_mapping_needed.png)
+
+To fix that issue you need to map the symlink path to the real path like so:
+
+![Xdebug Mapping](./images/xdebug_mapping.png)
