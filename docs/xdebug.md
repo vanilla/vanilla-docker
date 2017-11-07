@@ -20,6 +20,7 @@ After putting a breakpoint in a file that was symlinked you will probably encoun
 
 ![Xdebug Mapping needed](./images/xdebug_mapping_needed.png)
 
-To fix that issue you need to map the symlink path to the real path like so:
+To fix that issue you need to click on "Click to set up path mappings" in order to map the symlink path to the real path like so:
 
 ![Xdebug Mapping](./images/xdebug_mapping.png)
+

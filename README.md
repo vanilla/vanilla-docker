@@ -28,8 +28,8 @@ nginx web server
 
 - Serve:
     - https://dev.vanilla.localhost (main forum)
-    - https://vanilla.test (unit tests address)
     - https://sso.vanilla.localhost (sso providers)
+    - http://vanilla.test (unit tests address)
 
 ### php-fpm
 
