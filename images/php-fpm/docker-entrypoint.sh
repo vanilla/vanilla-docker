@@ -5,7 +5,7 @@ if [ -z "$configured" ]; then
     # add host to /etc/hosts
     host=$(hostname)
     line=$(cat /etc/hosts | grep $host)
-    echo "$line noreply@vdev.anilla.localhost" >> /etc/hosts
+    echo "$line noreply@dev.vanilla.localhost" >> /etc/hosts
 
     echo "$host" >> /etc/mail/relay-domains
 

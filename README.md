@@ -69,5 +69,5 @@ See [Make unit tests work within PhpStorm](./docs/unit-tests.md).
 
 ## F.A.Q
 
-Q. Why is everything so low?
+Q. Why is everything so slow?
 A. Maybe you did not allocate enough Memory and CPUs to docker. `Docker` > `Preferences` > `Advanced`

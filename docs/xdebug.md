@@ -1,6 +1,6 @@
 ## Make Xdebug work with PhpStorm
 
-`Tools DBGp Proxy` > `Configuration`
+`Tools` > `DBGp Proxy` > `Configuration`
 
 - `IDE Key`: PHPSTORM
 - `Host`: 127.0.0.1
