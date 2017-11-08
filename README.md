@@ -48,6 +48,14 @@ php-fpm with PHP 7.1
     - [https://github.com/vanilla/vanilla-docker](vanilla/vanilla-docker)
     - [https://github.com/vanilla/addons](vanilla/addons)
     - ...
+1. You should have the following structure
+```
+repositories
+├── vanilla
+├── vanilla-docker
+├── addons
+├── ...
+```
 1. Move into the `vanilla-docker` directory.
 1. Run `sudo ./mac-setup.sh` which will:
     - Add a self signed certificate `*.vanilla.localhost` to your keychain.
