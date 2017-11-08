@@ -1,0 +1,24 @@
+# The Percona image has a bug, since 5.7, that makes it impossible to redefine sql_mode
+# https://github.com/docker-library/percona/issues/40
+# That's why this file is prefixed by z_ and is in percona-server.conf.d instead of being in conf.d
+
+[client]
+default_character_set = utf8mb4
+
+[mysqld]
+sql_mode = NO_ENGINE_SUBSTITUTION
+
+log_error = /var/log/mysql/error.log
+
+character_set_server = utf8mb4
+collation_server = utf8mb4_unicode_ci
+
+max_allowed_packet = 100M
+
+# Disable query caching.
+query_cache_type = 0
+query_cache_size = 0
+
+[mysqldump]
+max_allowed_packet = 100M
+

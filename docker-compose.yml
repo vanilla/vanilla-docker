@@ -1,27 +1,91 @@
-version: "2"
+# This file is ignored by default if you want to commit a change you'll need to force it.
+version: "3"
 services:
-  httpd:
-    build:
-      context: "./httpd"
-    depends_on:
-      - "fcgi"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes_from:
-      - fcgi
-  db:
-    build:
-      context: "./db"
-    environment:
-      MYSQL_ROOT_PASSWORD: "password"
-    image: "percona:latest"
-    ports:
-      - "3306:3306"
-  fcgi:
-    build:
-      context: "./fcgi"
-    depends_on:
-      - "db"
-    volumes:
-      - "./srv/htdocs:/srv/htdocs"
+    db:
+        build:
+            context: "./images/db"
+        container_name: vanilladocker_db
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./logs/mysql:/var/log/mysql
+            - datastorage:/var/lib/mysql
+
+    httpd:
+        build:
+            context: "./images/httpd"
+        container_name: vanilladocker_httpd
+        depends_on:
+            - "db"
+            - "php_fpm"
+        ports:
+            - "9080:9080"
+            - "9443:9443"
+        volumes:
+            - shared:/shared # allow to use the php-fpm socket
+            - ./logs/httpd:/var/log/httpd
+            - ./resources/certificates:/certificates
+            - ./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d
+            - ../:/srv/vanilla-repositories
+
+    nginx:
+        build:
+            context: "./images/nginx"
+        container_name: vanilladocker_nginx
+        depends_on:
+            - "db"
+            - "php_fpm"
+        ports:
+            - "80:80"
+            - "8080:8080"
+            - "443:443"
+        volumes:
+            - shared:/shared # allow to use the php-fpm socket
+            - ./logs/nginx:/var/log/nginx
+            - ./resources/certificates:/certificates
+            - ./resources/etc/nginx/sites-available:/etc/nginx/sites-available
+            - ./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
+            - ../:/srv/vanilla-repositories
+
+    php_fpm:
+        build:
+            context: "./images/php-fpm"
+        container_name: vanilladocker_phpfpm
+        environment:
+            - TEST_BASEURL
+            - TEST_DB_HOST
+            - TEST_DB_NAME
+            - TEST_DB_USER
+            - TEST_DB_PASSWORD
+        links:
+            # Allow to use "database" as a hostname from php
+            - "db:database"
+        volumes:
+            - shared:/shared # expose php-fpm socket
+            - ./logs/php-fpm:/var/log/php-fpm
+            - ./resources/sphinx:/sphinx # expose sphinx API
+            - ../:/srv/vanilla-repositories
+
+    #####
+    ## Before enabling make sure that:
+    ## - Your database is named vanilla_dev
+    ## - You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx` in your config
+    ## - You have enabled the sphinx plugin
+    #####
+#    sphinx:
+#        build:
+#            context: "./images/sphinx"
+#        container_name: vanilladocker_sphinx
+#        depends_on:
+#            - "db"
+#        volumes:
+#            - ./logs/sphinx:/var/log/sphinx
+#            - ./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d
+
+volumes:
+    datastorage:
+        # Created by our setup script.
+        external: true
+    shared:
