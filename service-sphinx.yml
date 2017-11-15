@@ -9,7 +9,7 @@ services:
     sphinx:
         build:
             context: "./images/sphinx"
-        container_name: vanilladocker_sphinx
+        container_name: sphinx
         volumes:
             - ./logs/sphinx:/var/log/sphinx
             - ./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d

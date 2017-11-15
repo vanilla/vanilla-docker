@@ -6,7 +6,7 @@ services:
             context: "./images/httpd"
         container_name: httpd
         depends_on:
-            - "php_fpm"
+            - "phpfpm"
         ports:
             - "9080:9080"
             - "9443:9443"
@@ -22,7 +22,7 @@ services:
             context: "./images/nginx"
         container_name: nginx
         depends_on:
-            - "php_fpm"
+            - "phpfpm"
         ports:
             - "80:80"
             - "8080:8080"
@@ -35,10 +35,10 @@ services:
             - ./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
             - ../:/srv/vanilla-repositories
 
-    php_fpm:
+    phpfpm:
         build:
             context: "./images/php-fpm"
-        container_name: php_fpm
+        container_name: phpfpm
         environment:
             - TEST_BASEURL
             - TEST_DB_HOST
