@@ -85,8 +85,22 @@ To start all container but the database one you can use:
 
 This will skip `docker-compose.override.yml`. Note that by doing so you will probably have to add additional
 configurations to make sure that the database is reachable from the containers.
-You always have the possibility of using the loopback ip `192.0.2.1` that is installed by the `mac-setup.sh` script
+
+To address that issue you have 2 ways of doing it:
+- You always have the possibility of using the loopback ip `192.0.2.1` that is installed by the `mac-setup.sh` script
 if your database is installed directly on your machine.
+- You can also create custom.*.yml file to extends the existing services and add extra-hosts to the services. Example:
+    `custom.dbhost.yml`
+    ```
+    version: "3"
+    
+    services:
+        php_fpm:
+            extra_hosts:
+                database: 192.0.2.1
+
+    ```
+    You can then do: `docker-compose -f docker-compose.yml -f custom.dbhost.yml up --build`
 
 You can also delete the datastorage volume created by `mac-setup.sh` since you won't be using it.
 
