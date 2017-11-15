@@ -11,7 +11,6 @@ _notes
 .settings
 .buildpath
 .idea
-/docker-compose.yml
 /resources/etc/nginx/sites-available/*
 !/resources/etc/nginx/sites-available/sso.vanilla.localhost.conf
 !/resources/etc/nginx/sites-available/dev.vanilla.localhost.conf

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 HOSTNAMES=(db database dev.vanilla.localhost sso.vanilla.localhost vanilla.test);
 
