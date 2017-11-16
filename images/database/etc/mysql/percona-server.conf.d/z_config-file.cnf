@@ -19,6 +19,15 @@ max_allowed_packet = 100M
 query_cache_type = 0
 query_cache_size = 0
 
+innodb_file_per_table  = 1
+innodb_thread_concurrency = 0
+innodb_read_io_threads  = 10
+innodb_write_io_threads = 10
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method    = O_DIRECT
+
+innodb_log_file_size = 128M
+
 [mysqldump]
 max_allowed_packet = 100M
 

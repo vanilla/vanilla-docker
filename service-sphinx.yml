@@ -1,0 +1,15 @@
+version: "3"
+services:
+    #####
+    ## Before enabling make sure that:
+    ## - Your database is named vanilla_dev
+    ## - You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx` in your config
+    ## - You have enabled the sphinx plugin
+    #####
+    sphinx:
+        build:
+            context: "./images/sphinx"
+        container_name: sphinx
+        volumes:
+            - ./logs/sphinx:/var/log/sphinx
+            - ./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d

@@ -41,6 +41,7 @@ php-fpm with PHP 7.1
 *For this setup to work properly you need to clone all vanilla repositories in the same base directory*
 
 1. Get [Docker for OSX](https://download.docker.com/mac/stable/Docker.dmg) and install it.
+    - Do not forget to tune up the allocated Memory and CPUs. `Docker` > `Preferences` > `Advanced`
 1. Create a `repositories` folder
 1. Clone all the wanted repositories in there.
     - [https://github.com/vanilla/vanilla](vanilla/vanilla)
@@ -67,6 +68,42 @@ repositories
 Do not forget to run `docker-compose up --build` to start up the services every time you restart your computer.
 To properly stop the containers you need to run `docker-compose down`.
 
+##### Running optional services
+
+To run additional services (named service-*.yml) you can specify which .yml file to run like so:
+
+`docker-compose -f docker-compose.yml -f docker-compose.override.yml -f service-sphinx.yml up --build`
+
+You can add as many services as you want that way.
+For more information: [understanding-multiple-compose-files](https://docs.docker.com/compose/extends/#understanding-multiple-compose-files)
+
+##### Using your local database
+
+To start all container but the database one you can use:
+
+`docker-compose -f docker-compose.yml up --build`
+
+This will skip `docker-compose.override.yml`. Note that by doing so you will probably have to add additional
+configurations to make sure that the database is reachable from the containers.
+
+To address that issue you have 2 ways of doing it:
+- You always have the possibility of using the loopback ip `192.0.2.1` that is installed by the `mac-setup.sh` script
+if your database is installed directly on your machine.
+- You can also create custom.*.yml file to extends the existing services and add extra-hosts to the services. Example:
+    `custom.dbhost.yml`
+    ```
+    version: "3"
+    
+    services:
+        phpfpm:
+            extra_hosts:
+                database: 192.0.2.1
+
+    ```
+    You can then do: `docker-compose -f docker-compose.yml -f custom.dbhost.yml up --build`
+
+You can also delete the datastorage volume created by `mac-setup.sh` since you won't be using it.
+
 ### Xdebug
 
 See [Make Xdebug work with PhpStorm](./docs/xdebug.md).
@@ -78,4 +115,8 @@ See [Make unit tests work within PhpStorm](./docs/unit-tests.md).
 ## F.A.Q
 
 Q. Why is everything so slow?
-A. Maybe you did not allocate enough Memory and CPUs to docker. `Docker` > `Preferences` > `Advanced`
+
+A. You are probably running on the APFS file system that became the standard with macOS High Sierra and 
+which has pretty bad performance with Docker for Mac. 
+Having the database on your host instead os inside docker might help a lot. See [#10](https://github.com/vanilla/vanilla-docker/issues/10). 
+

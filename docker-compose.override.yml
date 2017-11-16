@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+    database:
+        build:
+            context: "./images/database"
+        container_name: database
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./logs/mysql:/var/log/mysql
+            - datastorage:/var/lib/mysql
+
+volumes:
+    datastorage:
+        # Created by our setup script.
+        external: true
