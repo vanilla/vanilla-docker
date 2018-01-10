@@ -3,15 +3,15 @@ version: "3"
 services:
     database:
         build:
-            context: "./images/database"
+            context: "./images/${VANILLA_DOCKER_DATABASE}"
         container_name: database
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
         ports:
             - "3306:3306"
         volumes:
-            - ./logs/mysql:/var/log/mysql
-            - datastorage:/var/lib/mysql
+            - "./logs/${VANILLA_DOCKER_DATABASE}:/var/log/mysql"
+            - "datastorage:/var/lib/mysql"
 
 volumes:
     datastorage:
