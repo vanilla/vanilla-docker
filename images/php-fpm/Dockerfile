@@ -22,7 +22,6 @@ COPY ./usr/local/etc/php/conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebu
 COPY ./usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
 RUN mkdir -p /shared/var/run/
-RUN ln -s /srv/vanilla-repositories/vanilla /srv/htdocs
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
