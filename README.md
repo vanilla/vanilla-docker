@@ -97,7 +97,7 @@ if your database is installed directly on your machine.
     version: "3"
     
     services:
-        phpfpm:
+        php-fpm:
             extra_hosts:
                 database: 192.0.2.1
 
