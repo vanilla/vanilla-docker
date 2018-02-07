@@ -20,9 +20,23 @@ services:
     nginx:
         build:
             context: "./images/nginx"
+        # Transform the template into an actual file
+        command: /bin/bash -c "envsubst < /etc/nginx/fastcgi.conf.tpl > /etc/nginx/fastcgi.conf && nginx -g 'daemon off;'"
         container_name: "nginx"
         depends_on:
             - "php-fpm"
+        environment:
+            - "DOLLAR=$$"
+            - "FASTCGI_SPLIT_PATH_INFO=${VANILLA_DOCKER_FASTCGI_SPLIT_PATH_INFO}"
+            - "FASTCGI_INTERCEPT_ERRORS=${VANILLA_DOCKER_FASTCGI_INTERCEPT_ERRORS}"
+            - "FASTCGI_IGNORE_CLIENT_ABORT=${VANILLA_DOCKER_FASTCGI_IGNORE_CLIENT_ABORT}"
+            - "FASTCGI_CONNECT_TIMEOUT=${VANILLA_DOCKER_FASTCGI_CONNECT_TIMEOUT}"
+            - "FASTCGI_SEND_TIMEOUT=${VANILLA_DOCKER_FASTCGI_SEND_TIMEOUT}"
+            - "FASTCGI_READ_TIMEOUT=${VANILLA_DOCKER_FASTCGI_READ_TIMEOUT}"
+            - "FASTCGI_BUFFER_SIZE=${VANILLA_DOCKER_FASTCGI_BUFFER_SIZE}"
+            - "FASTCGI_BUFFERS=${VANILLA_DOCKER_FASTCGI_BUFFERS}"
+            - "FASTCGI_BUSY_BUFFERS_SIZE=${VANILLA_DOCKER_FASTCGI_BUSY_BUFFERS_SIZE}"
+            - "FASTCGI_TEMP_FILE_WRITE_SIZE=${VANILLA_DOCKER_FASTCGI_TEMP_FILE_WRITE_SIZE}"
         ports:
             - "80:80"
             - "8080:8080"
