@@ -4,51 +4,54 @@ services:
     httpd:
         build:
             context: "./images/httpd"
-        container_name: httpd
+        container_name: "httpd"
         depends_on:
-            - "phpfpm"
+            - "php-fpm"
         ports:
             - "9080:9080"
             - "9443:9443"
         volumes:
-            - shared:/shared # allow to use the php-fpm socket
-            - ./logs/httpd:/var/log/httpd
-            - ./resources/certificates:/certificates
-            - ./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d
-            - ../:/srv/vanilla-repositories
+            - "shared:/shared" # allow to use the php-fpm socket
+            - "./logs/httpd:/var/log/httpd"
+            - "./resources/certificates:/certificates"
+            - "./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d"
+            - "../:/srv/vanilla-repositories"
 
     nginx:
         build:
             context: "./images/nginx"
-        container_name: nginx
+        container_name: "nginx"
         depends_on:
-            - "phpfpm"
+            - "php-fpm"
         ports:
             - "80:80"
             - "8080:8080"
             - "443:443"
         volumes:
-            - shared:/shared # allow to use the php-fpm socket
-            - ./logs/nginx:/var/log/nginx
-            - ./resources/certificates:/certificates
-            - ./resources/etc/nginx/sites-available:/etc/nginx/sites-available
-            - ./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled
-            - ../:/srv/vanilla-repositories
+            - "shared:/shared" # allow to use the php-fpm socket
+            - "./logs/nginx:/var/log/nginx"
+            - "./resources/certificates:/certificates"
+            - "./resources/etc/nginx/conf.d/:/etc/nginx/conf.d/"
+            - "./resources/etc/nginx/sites-available:/etc/nginx/sites-available"
+            - "./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled"
+            - "../:/srv/vanilla-repositories"
 
-    phpfpm:
+    php-fpm:
         build:
             context: "./images/php-fpm"
-        container_name: phpfpm
+        container_name: "php-fpm"
         environment:
-            - TEST_BASEURL
-            - TEST_DB_HOST
-            - TEST_DB_NAME
-            - TEST_DB_USER
-            - TEST_DB_PASSWORD
+            - "PHP_INI_SCAN_DIR=:/usr/local/etc/php/custom.conf.d/*.ini" # Allow users to override configs
+            - "TEST_BASEURL"
+            - "TEST_DB_HOST"
+            - "TEST_DB_NAME"
+            - "TEST_DB_USER"
+            - "TEST_DB_PASSWORD"
         volumes:
-            - shared:/shared # expose php-fpm socket
-            - ./logs/php-fpm:/var/log/php-fpm
-            - ../:/srv/vanilla-repositories
+            - "shared:/shared" # expose php-fpm socket
+            - "./logs/php-fpm:/var/log/php-fpm"
+            - "./resources/usr/local/etc/php/custom.conf.d/:/usr/local/etc/php/custom.conf.d/"
+            - "../:/srv/vanilla-repositories"
 
 volumes:
     shared:

@@ -1,4 +1,4 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 RUN apt-get update \
     && apt-get install -y \
@@ -6,10 +6,10 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libmemcached-dev \
-        libpng12-dev \
+        libpng-dev \
         sendmail \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install gd mbstring mcrypt pdo pdo_mysql \
+    && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
@@ -21,7 +21,6 @@ COPY ./usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./usr/local/etc/php/conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
 COPY ./usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
-RUN mkdir -p /shared/var/run/
 RUN ln -s /srv/vanilla-repositories/vanilla /srv/htdocs
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
