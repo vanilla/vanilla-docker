@@ -50,7 +50,7 @@ services:
         volumes:
             - "shared:/shared" # expose php-fpm socket
             - "./logs/php-fpm:/var/log/php-fpm"
-            - "./resources/usr/local/etc/php/custom.conf.d/:/usr/local/etc/php/custom.conf.d/"
+            - "./resources/usr/local/etc/php/conf.d/:/usr/local/etc/php/custom.conf.d/"
             - "../:/srv/vanilla-repositories"
 
 volumes:
