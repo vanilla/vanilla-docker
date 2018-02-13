@@ -7,14 +7,16 @@ This repository contains a ready-for-development environment to develop against 
 
 ## The containers
 
-### db 
-*This container also has the alias "database".*
+### perconadb / mariadb
 
-Percona SQL database.
+SQL database.
 
-- Accessible from the container with the hosts "db" or "database"
-- Accessible from the docker host machine with the hosts "db", "database", "localhost", "127.0.0.1'
+- Accessible from the container with the hosts "database".
+- Accessible from the docker host machine with the hosts "database", "localhost", "127.0.0.1'
 - The user is "root" and there is no password.
+
+Defaults to perconadb.
+To change that set the environment variable VANILLA_DOCKER_DATABASE to mariadb in your `.bash_profile`.
 
 ### httpd
 
@@ -34,7 +36,7 @@ nginx web server
 
 ### php-fpm
 
-php-fpm with PHP 7.1
+php-fpm with PHP 7.2
 
 ## Setup
 
@@ -95,7 +97,7 @@ if your database is installed directly on your machine.
     version: "3"
     
     services:
-        phpfpm:
+        php-fpm:
             extra_hosts:
                 database: 192.0.2.1
 

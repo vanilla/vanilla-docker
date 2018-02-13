@@ -14,6 +14,6 @@ services:
             - ./logs/sphinx:/var/log/sphinx
             - ./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d
 
-    phpfpm:
+    php-fpm:
         volumes:
             - ./resources/sphinx:/sphinx # expose sphinx API
