@@ -18,7 +18,8 @@ custom.*.yml
 !/resources/etc/nginx/sites-available/dev.vanilla.localhost.conf
 !/resources/etc/nginx/sites-available/vanilla.test.conf
 !/resources/usr/local/apache2/conf.d/vanilla.localhost.ssl.conf
-!/resources/usr/etc/sphinx/conf.d/*
+!/resources/usr/local/etc/sphinx/conf.d/configs-available/advanced.sphinx.conf
+!/resources/usr/local/etc/sphinx/conf.d/configs-available/standard.sphinx.conf
 /logs/*
 !/logs/httpd/.gitkeep
 !/logs/mysql/.gitkeep
