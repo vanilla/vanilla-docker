@@ -1,7 +1,8 @@
 #!/bin/bash
 
-configured=$(grep 'noreply@dev.vanilla.localhost' /etc/hosts)
-if [ -z "$configured" ]; then
+# Configure sendmail
+sendmailConfigured=$(grep 'noreply@dev.vanilla.localhost' /etc/hosts)
+if [ -z "$sendmailConfigured" ]; then
     # add host to /etc/hosts
     host=$(hostname)
     line=$(cat /etc/hosts | grep $host)
@@ -24,6 +25,9 @@ fi
 
 # Start sendmail
 sendmail -bd
+
+# Reload certificates so that everything in /usr/local/share/ca-certificates is loaded.
+update-ca-certificates
 
 # Start php-fpm
 php-fpm
