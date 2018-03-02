@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOSTNAMES=(database dev.vanilla.localhost sso.vanilla.localhost vanilla.test);
+HOSTNAMES=(database dev.vanilla.localhost sso.vanilla.localhost vanilla.test embed.vanilla.localhost advanced-embed.vanilla.localhost);
 
 if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo:";
