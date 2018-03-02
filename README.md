@@ -31,7 +31,9 @@ nginx web server
 
 - Serve:
     - https://dev.vanilla.localhost (main forum)
-    - https://sso.vanilla.localhost (sso providers)
+    - https://sso.vanilla.localhost ([stub-sso-providers](https://github.com/vanilla/stub-sso-providers))
+    - https://embed.vanilla.localhost ([stub-embed-providers](https://github.com/vanilla/stub-embed-providers))
+    - https://advanced-embed.vanilla.localhost ([stub-embed-providers](https://github.com/vanilla/stub-embed-providers))
     - http://vanilla.test:8080 (unit tests address)
 
 ### php-fpm
