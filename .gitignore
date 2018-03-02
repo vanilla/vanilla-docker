@@ -17,6 +17,8 @@ custom.*.yml
 !/resources/etc/nginx/sites-available/sso.vanilla.localhost.conf
 !/resources/etc/nginx/sites-available/dev.vanilla.localhost.conf
 !/resources/etc/nginx/sites-available/vanilla.test.conf
+!/resources/etc/nginx/sites-available/embed.vanilla.localhost.conf
+!/resources/etc/nginx/sites-available/advanced-embed.vanilla.localhost.conf
 !/resources/usr/local/apache2/conf.d/vanilla.localhost.ssl.conf
 !/resources/usr/local/etc/sphinx/conf.d/configs-available/advanced.sphinx.conf
 !/resources/usr/local/etc/sphinx/conf.d/configs-available/standard.sphinx.conf
