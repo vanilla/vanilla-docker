@@ -69,6 +69,7 @@ services:
             - "shared:/shared" # expose php-fpm socket
             - "./logs/php-fpm:/var/log/php-fpm"
             - "./resources/certificates:/usr/local/share/ca-certificates" # Mount extra certificates
+            - "./resources/sphinx:/sphinx" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d"
             - "../:/srv/vanilla-repositories"
 
