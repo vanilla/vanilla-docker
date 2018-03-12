@@ -13,3 +13,4 @@ services:
         volumes:
             - ./logs/sphinx:/var/log/sphinx
             - ./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d
+            - ./resources/usr/local/etc/sphinx/configs-available/:/usr/local/etc/sphinx/configs-available/
