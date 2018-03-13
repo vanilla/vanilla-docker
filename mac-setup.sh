@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-HOSTNAMES=(database dev.vanilla.localhost sso.vanilla.localhost vanilla.test embed.vanilla.localhost advanced-embed.vanilla.localhost);
+HOSTNAMES=(
+    advanced-embed.vanilla.localhost
+    database
+    dev.vanilla.localhost
+    embed.vanilla.localhost
+    memcached
+    sso.vanilla.localhost
+    vanilla.test
+);
 
 if [[ $UID != 0 ]]; then
     echo "Please run this script with sudo:";
@@ -58,14 +66,14 @@ fi
 for HOSTNAME in ${HOSTNAMES[@]}; do
     HOST_ENTRY=$(grep "$HOSTNAME" /etc/hosts);
     if [ ! -n "$HOST_ENTRY" ]; then
-        echo '127.0.0.1 '"$HOSTNAME" >> /etc/hosts
+        echo '127.0.0.1 '"$HOSTNAME" \# Added from vanilla-docker/mac-setup.sh >> /etc/hosts
     fi
 done
 
 # https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-file-as-a-data-volume#creating-and-mounting-a-data-volume-container
 DATA_STORAGE_CHECK=$(docker volume ls -q | grep datastorage);
 if [ ! -n "$DATA_STORAGE_CHECK" ]; then
-    docker volume create --name=datastorage --label="Persistent data storage" 1&> /dev/null
+    docker volume create --name=datastorage --label="Persistent data storage" > /dev/null
 fi
 
 # Install our certificate for *.vanilla.localhost

@@ -11,7 +11,8 @@ _notes
 .settings
 .buildpath
 .idea
-custom.*.yml
+/custom.*.yml
+/custom.*.sh
 /*-xtra/
 /resources/etc/mysql/conf.d/*
 !/resources/etc/mysql/conf.d/.gitkeep
