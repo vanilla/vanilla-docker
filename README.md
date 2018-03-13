@@ -79,6 +79,8 @@ To run additional services (named service-*.yml) you can specify which .yml file
 `docker-compose -f docker-compose.yml -f docker-compose.override.yml -f service-sphinx.yml up --build`
 
 You can add as many services as you want that way.
+Generally, there should be documentation inside the .yml file of the service that gives you information about it.
+
 For more information: [understanding-multiple-compose-files](https://docs.docker.com/compose/extends/#understanding-multiple-compose-files)
 
 ##### Using your local database
