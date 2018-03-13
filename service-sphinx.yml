@@ -5,6 +5,8 @@ services:
     ## - Your database is named vanilla_dev
     ## - You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx` in your config
     ## - You have enabled the sphinx plugin
+    ## - You symlinked one of the configs-available as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
+    ##    - Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
     #####
     sphinx:
         build:
