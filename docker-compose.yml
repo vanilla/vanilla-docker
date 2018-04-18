@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 services:
     httpd:
@@ -7,6 +7,8 @@ services:
         container_name: "httpd"
         depends_on:
             - "php-fpm"
+        networks:
+            - "vanilla_network"
         ports:
             - "9080:9080"
             - "9443:9443"
@@ -38,10 +40,11 @@ services:
             - "FASTCGI_BUSY_BUFFERS_SIZE=${VANILLA_DOCKER_FASTCGI_BUSY_BUFFERS_SIZE}"
             - "FASTCGI_TEMP_FILE_WRITE_SIZE=${VANILLA_DOCKER_FASTCGI_TEMP_FILE_WRITE_SIZE}"
         networks:
-            default:
+            vanilla_network:
                 aliases: # Allows (sso|dev).vanilla.localhost to be resolved internally from php-fpm
                     - "sso.vanilla.localhost"
                     - "dev.vanilla.localhost"
+                    - "vanilla.test"
         ports:
             - "80:80"
             - "8080:8080"
@@ -55,6 +58,7 @@ services:
             - "./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled"
             - "../:/srv/vanilla-repositories"
 
+    # Don't forget to update docker-compose.unit-test.yml
     php-fpm:
         build:
             context: "./images/php-fpm"
@@ -66,6 +70,8 @@ services:
             - "TEST_DB_NAME"
             - "TEST_DB_USER"
             - "TEST_DB_PASSWORD"
+        networks:
+            - "vanilla_network"
         volumes:
             - "shared:/shared" # expose php-fpm socket
             - "./logs/php-fpm:/var/log/php-fpm"
@@ -76,3 +82,8 @@ services:
 
 volumes:
     shared:
+
+networks:
+    vanilla_network:
+        driver: "bridge"
+        name: "vanilla_network"

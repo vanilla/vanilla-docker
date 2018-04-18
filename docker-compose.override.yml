@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 
 services:
     database:
@@ -7,6 +7,8 @@ services:
         container_name: "database"
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        networks:
+            - "vanilla_network"
         ports:
             - "3306:3306"
         volumes:
