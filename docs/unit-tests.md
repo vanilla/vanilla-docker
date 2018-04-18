@@ -34,6 +34,8 @@ This example works to run the unit tests of Vanilla.
 
 ![Test framework](./images/unittests-test-framework.png)
 
+Make sure that `Path To Script` and `Default configuration file` are exactly the same as the image above.
+
 ### Export environment variable
 
 Export `TEST_DB_HOST=database` so that unit tests know the host for the database inside the php-fpm container.
