@@ -11,9 +11,13 @@ Add a new docker instance and choose "Docker for Mac".
 
 Click on `...` which is located beside "CLI Interpreter".
 
-Add a new instance with the following configuration:
+Add a new instance by pressing the + button:
 
-![CLI Interpreter Add](./images/unittests-cli-interpreter-add.png)
+![CLI Interpreter Add](./images/unittests-cli-interpreter-add-settings.png)
+
+with the following configuration:
+
+![CLI Interpreter Add Settings](./images/unittests-cli-interpreter-add-settings.png)
 
 You should have the a similar result:
 
@@ -25,14 +29,14 @@ This example works to run the unit tests of Vanilla.
 
 `PhpStorm` > `Preferences` > `Languages & Frameworks` > `PHP` > `Test Frameworks`
 
-- Add a new instance and choose: PHPUnit by Remote Interpreter
-- Select unit-tests-php-fpm
+- Add a new instance and choose: `PHPUnit by Remote Interpreter`
+- Select `unit-tests-php-fpm`
 
 ![Test framework](./images/unittests-test-framework.png)
 
 ### Export environment variable
 
-Export TEST_DB_HOST=database so that unit tests know the host for the database inside the php-fpm container.
+Export `TEST_DB_HOST=database` so that unit tests know the host for the database inside the php-fpm container.
 
 If you are using bash (that's the default on Mac OSX) you can do:
 ```bash
