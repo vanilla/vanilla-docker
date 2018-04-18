@@ -4,13 +4,18 @@
 
 `PhpStorm` > `Preferences` > `Build, Execution, Deployment` > `Docker`
 
-Add a new docker instance and choose "Docker for Mac"
+Add a new docker instance and choose "Docker for Mac".
+*Note that from here on the beginning of paths shown in the images might differ from yours.*
 
 `PhpStorm` > `Preferences` > `Languages & Frameworks` > `PHP`
 
 Click on `...` which is located beside "CLI Interpreter".
 
 Add a new instance with the following configuration:
+
+![CLI Interpreter Add](./images/unittests-cli-interpreter-add.png)
+
+You should have the a similar result:
 
 ![CLI Interpreter Configurations](./images/unittests-cli-interpreter.png)
 
@@ -21,7 +26,7 @@ This example works to run the unit tests of Vanilla.
 `PhpStorm` > `Preferences` > `Languages & Frameworks` > `PHP` > `Test Frameworks`
 
 - Add a new instance and choose: PHPUnit by Remote Interpreter
-- Select vanilladocker_php
+- Select unit-tests-php-fpm
 
 ![Test framework](./images/unittests-test-framework.png)
 
