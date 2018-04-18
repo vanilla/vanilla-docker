@@ -13,7 +13,7 @@ Click on `...` which is located beside "CLI Interpreter".
 
 Add a new instance by pressing the + button:
 
-![CLI Interpreter Add](./images/unittests-cli-interpreter-add-settings.png)
+![CLI Interpreter Add](./images/unittests-cli-interpreter-add.png)
 
 with the following configuration:
 
