@@ -1,10 +1,10 @@
-version: "3.5"
+version: "3.6"
 
 services:
     database:
         build:
             context: "./images/${VANILLA_DOCKER_DATABASE}"
-        container_name: "database"
+        #container_name: "database"
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
         networks:

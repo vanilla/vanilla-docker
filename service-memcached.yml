@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.6"
 services:
     #####
     ## Runs on the default port 11211
@@ -28,4 +28,4 @@ services:
             context: "./images/memcached"
         networks:
             - "vanilla_network"
-        container_name: memcached
+        #container_name: "memcached"
