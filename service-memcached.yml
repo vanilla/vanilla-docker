@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.6"
 services:
     #####
     ## Runs on the default port 11211
