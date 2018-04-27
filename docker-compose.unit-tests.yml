@@ -1,11 +1,11 @@
-version: "3.5"
+version: "3.6"
 
 services:
     # It sucks that the extend command has been removed in docker-compose 3.x
     unit-test-php-fpm:
         build:
             context: "./images/php-fpm"
-        container_name: "unit-test-php-fpm"
+        #container_name: "unit-test-php-fpm"
         environment:
             - "PHP_INI_SCAN_DIR=:/usr/local/etc/php/custom.conf.d" # Allow users to override configs
             - "TEST_BASEURL"

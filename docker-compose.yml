@@ -1,10 +1,10 @@
-version: "3.5"
+version: "3.6"
 
 services:
     httpd:
         build:
             context: "./images/httpd"
-        container_name: "httpd"
+        #container_name: "httpd"
         depends_on:
             - "php-fpm"
         networks:
@@ -24,7 +24,7 @@ services:
             context: "./images/nginx"
         # Transform the template into an actual file
         command: /bin/bash -c "envsubst < /etc/nginx/fastcgi.conf.tpl > /etc/nginx/fastcgi.conf && nginx -g 'daemon off;'"
-        container_name: "nginx"
+        #container_name: "nginx"
         depends_on:
             - "php-fpm"
         environment:
@@ -62,7 +62,7 @@ services:
     php-fpm:
         build:
             context: "./images/php-fpm"
-        container_name: "php-fpm"
+        #container_name: "php-fpm"
         environment:
             - "PHP_INI_SCAN_DIR=:/usr/local/etc/php/custom.conf.d" # Allow users to override configs
             - "TEST_BASEURL"
