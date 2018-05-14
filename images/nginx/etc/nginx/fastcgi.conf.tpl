@@ -25,7 +25,9 @@ fastcgi_param  REDIRECT_STATUS    200;
 fastcgi_param  PATH_INFO          ${DOLLAR}fastcgi_path_info;
 fastcgi_param  SCRIPT_FILENAME    ${DOLLAR}realpath_root${DOLLAR}fastcgi_script_name;
 
+# http://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_split_path_info
 fastcgi_split_path_info ${FASTCGI_SPLIT_PATH_INFO};
+
 fastcgi_intercept_errors ${FASTCGI_INTERCEPT_ERRORS};
 fastcgi_ignore_client_abort ${FASTCGI_IGNORE_CLIENT_ABORT};
 fastcgi_connect_timeout ${FASTCGI_CONNECT_TIMEOUT};
