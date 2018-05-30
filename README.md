@@ -49,16 +49,14 @@ php-fpm with PHP 7.2
 1. Get [Composer](https://getcomposer.org/) and install it.
 1. Create a directory for your project. In this example, we'll use `my-vanilla-project`, but you can use any name.
 1. Move into your project directory.
-1. Clone the following repos into your project directory:
-    1. [https://github.com/vanilla/vanilla](vanilla/vanilla)
-    1. [https://github.com/vanilla/vanilla-docker](vanilla/vanilla-docker)
-    1. [https://github.com/vanilla/addons](vanilla/addons)
+1. Clone or download [vanilla/vanilla-docker](https://github.com/vanilla/vanilla-docker) into your project directory.
+1. Clone or download [vanilla/vanilla](https://github.com/vanilla/vanilla) into your project directory.
+1. Clone or download any other project dependencies (for example, any of [vanilla/addons](https://github.com/vanilla/addons)), and install according to their instructions.
 1. You should have the following structure
     ```
     my-vanilla-project
     ├── vanilla
     ├── vanilla-docker
-    ├── addons
     ├── ...
     ```
 1. Move into the `vanilla` directory.
