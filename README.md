@@ -51,7 +51,7 @@ php-fpm with PHP 7.2
 1. Move into your project directory.
 1. Clone or download [vanilla/vanilla-docker](https://github.com/vanilla/vanilla-docker) into your project directory.
 1. Clone or download [vanilla/vanilla](https://github.com/vanilla/vanilla) into your project directory.
-1. Clone or download any other project dependencies (for example, any of [vanilla/addons](https://github.com/vanilla/addons)), and install according to their instructions.
+1. Clone or download any other project dependencies into your project directory (for example, any of [vanilla/addons](https://github.com/vanilla/addons)), and install according to their instructions. _Note: All addons, plugins, themes, etc, must be located in the project directory. Everything outside of the project directory will not be made available inside of the Docker container._
 1. You should have the following structure
     ```
     my-vanilla-project
