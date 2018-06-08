@@ -11,6 +11,7 @@ _notes
 .settings
 .buildpath
 .idea
+.docker-sync
 /custom.*.yml
 /custom.*.sh
 /*-xtra/

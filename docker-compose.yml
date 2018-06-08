@@ -81,9 +81,9 @@ services:
             - "src-sync/:/srv/vanilla-repositories:nocopy"
 
 volumes:
-    shared:
     src-sync:
         external: true
+    shared:
 
 networks:
     vanilla_network:
