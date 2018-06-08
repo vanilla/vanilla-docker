@@ -46,6 +46,11 @@ php-fpm with PHP 7.2
 
 1. Get [Docker for OSX](https://download.docker.com/mac/stable/Docker.dmg) and install it.
     - Do not forget to tune up the allocated Memory and CPUs. `Docker` > `Preferences` > `Advanced`
+1. Install [docker-sync](https://github.com/EugenMayer/docker-sync)
+
+```ruby
+gem install docker-sync
+```
 1. Create a `repositories` folder
 1. Clone all the wanted repositories in there.
     - [https://github.com/vanilla/vanilla](vanilla/vanilla)
@@ -67,10 +72,12 @@ repositories
     - Safely update your `/etc/hosts`.
     - Add `192.0.2.1` as a loopback IP address.
     - Create a docker volume named "datastorage" which will contain the database data.
+1. Start Docker Sync `docker-sync start`. This will take a while the first time, but will be much faster on subsequent runs.
 1. Run `docker-compose up --build` (It will take a while the first time) and voila -> [dev.vanilla.localhost](https://dev.vanilla.localhost/)
 
 Do not forget to run `docker-compose up --build` to start up the services every time you restart your computer.
-To properly stop the containers you need to run `docker-compose down`.
+
+To properly stop the containers you need to run `docker-compose down` and `docker-sync stop`.
 
 ##### Running optional services
 

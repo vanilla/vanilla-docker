@@ -17,7 +17,7 @@ services:
             - "./logs/httpd:/var/log/httpd"
             - "./resources/certificates:/certificates"
             - "./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d"
-            - "../:/srv/vanilla-repositories"
+            - "src-sync/:/srv/vanilla-repositories:nocopy"
 
     nginx:
         build:
@@ -56,7 +56,7 @@ services:
             - "./resources/etc/nginx/conf.d:/etc/nginx/conf.d"
             - "./resources/etc/nginx/sites-available:/etc/nginx/sites-available"
             - "./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled"
-            - "../:/srv/vanilla-repositories"
+            - "src-sync/:/srv/vanilla-repositories:nocopy"
 
     # Don't forget to update docker-compose.unit-test.yml
     php-fpm:
@@ -78,12 +78,15 @@ services:
             - "./resources/certificates:/usr/local/share/ca-certificates" # Mount extra certificates
             - "./resources/sphinx:/sphinx" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d"
-            - "../:/srv/vanilla-repositories"
+            - "src-sync/:/srv/vanilla-repositories:nocopy"
 
 volumes:
     shared:
+    src-sync:
+        external: true
 
 networks:
     vanilla_network:
         driver: "bridge"
         name: "vanilla_network"
+

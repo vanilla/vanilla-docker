@@ -21,10 +21,12 @@ services:
             - "./resources/certificates:/usr/local/share/ca-certificates" # Mount extra certificates
             - "./resources/sphinx:/sphinx" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d"
-            - "../:/srv/vanilla-repositories"
+            - "src-sync:/srv/vanilla-repositories:nocopy"
 
 volumes:
     unit-test-shared:
+    src-sync:
+        external: true
 
 networks:
     default:
