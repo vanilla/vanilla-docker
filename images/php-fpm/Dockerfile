@@ -9,11 +9,14 @@ RUN apt-get update \
         libpng-dev \
         sendmail \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql \
+    && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql zip \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && pecl install memcached \
     && docker-php-ext-enable memcached
+
+# Install composer
+RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
 # Cleanup apt
 RUN rm -rf /var/lib/apt/lists/*
