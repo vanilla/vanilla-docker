@@ -16,6 +16,6 @@ services:
         networks:
             - "vanilla_network"
         volumes:
-            - ./logs/sphinx:/var/log/sphinx
-            - ./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d
-            - ./resources/usr/local/etc/sphinx/configs-available/:/usr/local/etc/sphinx/configs-available/
+            - "./logs/sphinx:/var/log/sphinx:delegated"
+            - "./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d:cached"
+            - "./resources/usr/local/etc/sphinx/configs-available/:/usr/local/etc/sphinx/configs-available/:cached"
