@@ -17,7 +17,10 @@ services:
             - "./logs/httpd:/var/log/httpd"
             - "./resources/certificates:/certificates"
             - "./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d"
-            - "src-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable only into the container (much faster using docker-sync with rsync strategy)
+            - "sources-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable in both directions.
+            - "../vanilla/uploads/:/srv/vanilla-repositories/uploads:delegated"
 
     nginx:
         build:
@@ -56,7 +59,10 @@ services:
             - "./resources/etc/nginx/conf.d:/etc/nginx/conf.d"
             - "./resources/etc/nginx/sites-available:/etc/nginx/sites-available"
             - "./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled"
-            - "src-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable only into the container (much faster using docker-sync with rsync strategy)
+            - "sources-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable in both directions.
+            - "../vanilla/uploads/:/srv/vanilla-repositories/uploads:delegated"
 
     # Don't forget to update docker-compose.unit-test.yml
     php-fpm:
@@ -78,10 +84,15 @@ services:
             - "./resources/certificates:/usr/local/share/ca-certificates" # Mount extra certificates
             - "./resources/sphinx:/sphinx" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d"
-            - "src-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable only into the container (much faster using docker-sync with rsync strategy)
+            - "sources-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable in both directions.
+            - "../vanilla/cache/:/srv/vanilla-repositories/vanilla/cache:delegated"
+            - "../vanilla/conf/:/srv/vanilla-repositories/vanilla/conf:cached"
+            - "../vanilla/uploads/:/srv/vanilla-repositories/vanilla/uploads:cached"
 
 volumes:
-    src-sync:
+    sources-sync:
         external: true
     shared:
 

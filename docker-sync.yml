@@ -2,10 +2,10 @@ version: "2"
 
 syncs:
   #IMPORTANT: ensure this name is unique and does not match your other application container name
-  src-sync:
+  sources-sync:
     src: '../'
-    sync_excludes: ['Gemfile.lock', 'Gemfile', 'config.rb', '.sass-cache', '.awcache', 'sass', 'sass-cache', 'bower.json', 'package.json', 'Gruntfile*', 'bower_components', 'node_modules', '.gitignore', '.git', '*.coffee', '*.scss', '*.sass', 'vanilla-docker', '.idea', '.vscode']
-    monit_enable: false
-    sync_groupid: '33'
-    sync_userid: '33' # PHP-FPM user. Otherwise PHP doesn't have permission to change files.
+    sync_strategy: 'rsync'
+    sync_host_port: 10872
+    sync_excludes: ['Gemfile.lock', 'Gemfile', 'config.rb', '.sass-cache', '.awcache', 'sass', 'sass-cache', 'bower.json', 'package.json', 'Gruntfile*', 'bower_components', 'node_modules', '.gitignore', '.git', '*.coffee', '*.scss', '*.sass', 'vanilla-docker', '.idea', '.vscode', 'vanilla/cache', 'vanilla/conf', 'vanilla/uploads']
+    sync_args: "-L" # Needed or symlinks don't work.
 

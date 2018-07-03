@@ -21,11 +21,15 @@ services:
             - "./resources/certificates:/usr/local/share/ca-certificates" # Mount extra certificates
             - "./resources/sphinx:/sphinx" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d"
-            - "src-sync:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable only into the container (much faster using docker-sync with rsync strategy)
+            - "sources-sync/:/srv/vanilla-repositories:nocopy"
+            # Sync files that are writable in both directions.
+            - "../vanilla/conf/:/srv/vanilla-repositories/conf:delegated"
+            - "../vanilla/uploads/:/srv/vanilla-repositories/uploads:delegated"
 
 volumes:
     unit-test-shared:
-    src-sync:
+    sources-sync:
         external: true
 
 networks:
