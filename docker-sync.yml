@@ -1,0 +1,11 @@
+version: "2"
+
+syncs:
+  #IMPORTANT: ensure this name is unique and does not match your other application container name
+  sources-sync:
+    src: '../'
+    sync_strategy: 'rsync'
+    sync_host_port: 10872
+    sync_excludes: ['Gemfile.lock', 'Gemfile', 'config.rb', '.sass-cache', '.awcache', 'sass', 'sass-cache', 'bower.json', 'package.json', 'Gruntfile*', 'bower_components', 'node_modules', '.gitignore', '.git', '*.coffee', '*.scss', '*.sass', 'vanilla-docker', '.idea', '.vscode', 'vanilla/cache', 'vanilla/conf', 'vanilla/uploads']
+    sync_args: "-L" # Needed or symlinks don't work.
+
