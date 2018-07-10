@@ -1,22 +1,40 @@
 FROM php:7.2-fpm-stretch
 
-RUN apt-get update \
+RUN set -xe; \
+    apt-get update \
     && apt-get install -y \
+        # for intl extension
+        libicu-dev \
+        # for gd
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libmemcached-dev \
         libpng-dev \
+        # memchached extension
+        libmemcached-dev \
+        # allow mailing to work
         sendmail \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql \
+    # pecl installs
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
     && pecl install memcached \
-    && docker-php-ext-enable memcached
-
-# Cleanup apt
-RUN rm -rf /var/lib/apt/lists/*
+    && pecl clear-cache \
+    # built in extensions install
+    && docker-php-ext-install -j$(nproc) \
+        gd \
+        mbstring \
+        pdo \
+        pdo_mysql \
+        intl \
+    # configurations
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure intl \
+    # enable extentions
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable memcached \
+    # cleanup
+    && rm -rf \
+        /var/lib/apt/lists/* \
+        /usr/src/php/ext/* \
+        /tmp/*
 
 COPY ./usr/local/etc/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
