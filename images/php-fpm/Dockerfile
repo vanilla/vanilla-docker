@@ -16,21 +16,19 @@ RUN set -xe; \
     # pecl installs
     && pecl install xdebug \
     && pecl install memcached \
-    && pecl clear-cache \
+    # enable pecl installed extentions
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable memcached \
     # built in extensions install
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) \
         gd \
         mbstring \
         pdo \
         pdo_mysql \
         intl \
-    # configurations
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-configure intl \
-    # enable extentions
-    && docker-php-ext-enable xdebug \
-    && docker-php-ext-enable memcached \
     # cleanup
+    && pecl clear-cache \
     && rm -rf \
         /var/lib/apt/lists/* \
         /usr/src/php/ext/* \
