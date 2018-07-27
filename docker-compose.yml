@@ -1,6 +1,14 @@
 version: "3.5"
 
 services:
+    blackfire:
+        container_name: "blackfire"
+        image: "blackfire/blackfire"
+        environment:
+            - "BLACKFIRE_SERVER_ID"
+            - "BLACKFIRE_SERVER_TOKEN"
+        networks:
+            - "vanilla_network"
     httpd:
         build:
             context: "./images/httpd"
@@ -64,6 +72,8 @@ services:
             context: "./images/php-fpm"
         container_name: "php-fpm"
         environment:
+            - "BLACKFIRE_CLIENT_ID"
+            - "BLACKFIRE_CLIENT_TOKEN"
             - "PHP_INI_SCAN_DIR=:/usr/local/etc/php/custom.conf.d" # Allow users to override configs
             - "TEST_BASEURL"
             - "TEST_DB_HOST"
