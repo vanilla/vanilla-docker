@@ -19,7 +19,7 @@ services:
 #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_CONNECT_TIMEOUT, 1000, false);
 #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_SERVER_FAILURE_LIMIT, 2, false);
 #        } else {
-#            die('You compiled PHP without Memcached, idiot.');
+#            die('PHP is missing the Memcached extension.');
 #        }
 #    }
     #####
