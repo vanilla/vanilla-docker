@@ -17,7 +17,7 @@ services:
             - "./logs/httpd:/var/log/httpd:delegated"
             - "./resources/certificates:/certificates:cached"
             - "./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d:cached"
-            - "../:/srv/vanilla-repositories:cached"
+            - "../:/srv/vanilla-repositories:delegated"
 
     nginx:
         build:
@@ -56,7 +56,7 @@ services:
             - "./resources/etc/nginx/conf.d:/etc/nginx/conf.d:cached"
             - "./resources/etc/nginx/sites-available:/etc/nginx/sites-available:cached"
             - "./resources/etc/nginx/sites-enabled:/etc/nginx/sites-enabled:cached"
-            - "../:/srv/vanilla-repositories:cached"
+            - "../:/srv/vanilla-repositories:delegated"
 
     # Don't forget to update docker-compose.unit-test.yml
     php-fpm:
@@ -78,7 +78,7 @@ services:
             - "./resources/certificates:/usr/local/share/ca-certificates:cached" # Mount extra certificates
             - "./resources/sphinx:/sphinx:cached" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d:cached"
-            - "../:/srv/vanilla-repositories"
+            - "../:/srv/vanilla-repositories:delegated"
 
 volumes:
     shared:
