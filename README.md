@@ -38,7 +38,7 @@ nginx web server
 
 ### php-fpm
 
-php-fpm with PHP 7.2
+php-fpm with PHP 7.3
 
 ## Setup
 

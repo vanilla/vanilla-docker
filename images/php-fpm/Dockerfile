@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-stretch
+FROM php:7.3-fpm-stretch
 
 RUN set -xe; \
     apt-get update \
@@ -10,15 +10,15 @@ RUN set -xe; \
         libjpeg62-turbo-dev \
         libpng-dev \
         # memchached extension
-        libmemcached-dev \
+        #libmemcached-dev \
         # allow mailing to work
         sendmail \
     # pecl installs
-    && pecl install xdebug \
-    && pecl install memcached \
+    && pecl install xdebug-2.7.0beta1 \
+    #&& pecl install memcached \
     # enable pecl installed extentions
     && docker-php-ext-enable xdebug \
-    && docker-php-ext-enable memcached \
+    #&& docker-php-ext-enable memcached \
     # built in extensions install
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) \
