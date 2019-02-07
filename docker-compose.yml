@@ -5,8 +5,10 @@ services:
         container_name: "blackfire"
         image: "blackfire/blackfire"
         environment:
-            - "BLACKFIRE_SERVER_ID"
-            - "BLACKFIRE_SERVER_TOKEN"
+            - BLACKFIRE_SERVER_ID=4cfe9064-5b22-4f76-8570-6955e95d1d61
+            - BLACKFIRE_SERVER_TOKEN=c6031d1c9fc5c3e47d537db7a97ea413be2a4fb4f760130a01716f01d611b667
+            - BLACKFIRE_CLIENT_ID=6d884a28-d05d-41bc-be30-be60eb9444e4
+            - BLACKFIRE_CLIENT_TOKEN=2a38ddb676a90d9ff99d89bb83e31c13af910d4b93c4290b098655f7cab1a5bb
         networks:
             - "vanilla_network"
     httpd:
@@ -52,7 +54,9 @@ services:
                 aliases: # Allows (sso|dev).vanilla.localhost to be resolved internally from php-fpm
                     - "sso.vanilla.localhost"
                     - "dev.vanilla.localhost"
+                    - "colonize.localhost"
                     - "vanilla.test"
+                    - "vanillafactory.spawn"
         ports:
             - "80:80"
             - "8080:8080"
@@ -72,14 +76,14 @@ services:
             context: "./images/php-fpm"
         container_name: "php-fpm"
         environment:
-            - "BLACKFIRE_CLIENT_ID"
-            - "BLACKFIRE_CLIENT_TOKEN"
+            - BLACKFIRE_CLIENT_ID=6d884a28-d05d-41bc-be30-be60eb9444e4
+            - BLACKFIRE_CLIENT_TOKEN=2a38ddb676a90d9ff99d89bb83e31c13af910d4b93c4290b098655f7cab1a5bb
             - "PHP_INI_SCAN_DIR=:/usr/local/etc/php/custom.conf.d" # Allow users to override configs
             - "TEST_BASEURL"
-            - "TEST_DB_HOST"
-            - "TEST_DB_NAME"
-            - "TEST_DB_USER"
-            - "TEST_DB_PASSWORD"
+            - "TEST_DB_HOST=database"
+            - "TEST_DB_NAME=vanilla_test"
+            - "TEST_DB_USER=travis"
+            - "TEST_DB_PASSWORD=travis"
         networks:
             - "vanilla_network"
         volumes:
@@ -89,6 +93,24 @@ services:
             - "./resources/sphinx:/sphinx:cached" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d:cached"
             - "../:/srv/vanilla-repositories:delegated"
+    memcached:
+            build:
+                context: "./images/memcached"
+            networks:
+                - "vanilla_network"
+            container_name: memcached
+
+    sphinx:
+        build:
+            context: "./images/sphinx"
+        container_name: sphinx
+        networks:
+            - "vanilla_network"
+        volumes:
+            - "./logs/sphinx:/var/log/sphinx:delegated"
+            - "./resources/usr/local/etc/sphinx/conf.d:/usr/local/etc/sphinx/conf.d:cached"
+            - "./resources/usr/local/etc/sphinx/configs-available/:/usr/local/etc/sphinx/configs-available/:cached"
+
 
 volumes:
     shared:

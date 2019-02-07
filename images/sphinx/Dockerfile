@@ -14,3 +14,4 @@ RUN chmod +x /root/startup.sh
 CMD /root/startup.sh
 
 EXPOSE 9312
+EXPOSE 9306

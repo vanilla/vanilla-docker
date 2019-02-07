@@ -38,6 +38,8 @@ RUN set -xe; \
     && docker-php-ext-enable blackfire \
     # cleanup
     && pecl clear-cache \
+    && docker-php-ext-configure opcache --enable-opcache \
+        && docker-php-ext-install opcache \
     && rm -rf \
         /var/lib/apt/lists/* \
         /usr/src/php/ext/* \
