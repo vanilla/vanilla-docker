@@ -4,7 +4,7 @@ RUN ["mkdir", "-p", "/usr/local/etc/sphinx"]
 RUN ["mkdir", "-p", "/usr/local/etc/sphinx/conf.d"]
 RUN ["mkdir", "-p", "/usr/local/etc/sphinx/data"]
 
-COPY ./root/startup.sh /root/startup.sh
+COPY ./root/* /root/
 COPY ./usr/local/etc/sphinx.conf /usr/local/etc/sphinx.conf
 COPY ./usr/local/etc/sphinx/searchd.conf /usr/local/etc/sphinx/searchd.conf
 COPY ./usr/local/etc/sphinx/data/stops.txt /usr/local/etc/sphinx/data/stops.txt
