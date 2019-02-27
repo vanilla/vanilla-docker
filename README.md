@@ -40,6 +40,23 @@ nginx web server
 
 php-fpm with PHP 7.2
 
+### Sphinx
+
+Sphinx search service (service-sphinx.yml). 
+
+Before enabling make sure that:
+- Your database is named vanilla_dev
+- You have set `Plugins.Sphinx.Server = sphinx` in your config
+- You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx/` in your config
+- You have enabled the sphinx plugin
+- You symlinked one of the configs-available as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
+- Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
+- If you need to have Sphinx indexes updated regularly run `./install-sphinx-cron.sh`
+  - by default it will reindex delta indexes every minute and reindex all indexes every 5 min.
+  - by default cron jobs hit `sphinx` container
+  - if your environment or tasked to be different you need to change  `install-sphinx-cron.sh`
+ accordingly
+
 ## Setup
 
 *For this setup to work properly you need to clone all vanilla repositories in the same base directory*
