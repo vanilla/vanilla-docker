@@ -5,4 +5,6 @@ until mysql -h"database" -u"root" -e"quit"; do
 done
 
 >&2 echo "MySQL is now available."
-indexer --all && searchd --nodetach
+
+service crond start && indexer --all && searchd --nodetach
+
