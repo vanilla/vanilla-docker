@@ -36,6 +36,7 @@ _notes
 !resources/usr/local/etc/sphinx/configs-available/advanced.sphinx.conf
 !resources/usr/local/etc/sphinx/configs-available/standard.sphinx.conf
 !resources/usr/local/etc/sphinx/configs-available/groups-standard.sphinx.conf
+!resources/usr/local/etc/sphinx/configs-available/knowledge-standard.sphinx.conf
 /logs/httpd/
 !/logs/httpd/.gitkeep
 /logs/perconadb/
