@@ -14,7 +14,7 @@ RUN set -xe; \
         # allow mailing to work
         sendmail \
     # pecl installs
-    && pecl install xdebug-2.7.0beta1 \
+    && pecl install xdebug \
     #&& pecl install memcached \
     # enable pecl installed extentions
     && docker-php-ext-enable xdebug \
