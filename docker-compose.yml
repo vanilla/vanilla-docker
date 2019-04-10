@@ -78,6 +78,7 @@ services:
             - "./resources/certificates:/usr/local/share/ca-certificates:cached" # Mount extra certificates
             - "./resources/sphinx:/sphinx:cached" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d:cached"
+            - "./resources/usr/local/etc/php/fpm/pool.d:/usr/local/etc/php/fpm/pool.d:cached"
             - "../:/srv/vanilla-repositories"
 
 volumes:
