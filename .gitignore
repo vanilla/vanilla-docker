@@ -39,13 +39,3 @@ _notes
 !resources/usr/local/etc/sphinx/configs-available/standard.sphinx.conf
 !resources/usr/local/etc/sphinx/configs-available/groups-standard.sphinx.conf
 !resources/usr/local/etc/sphinx/configs-available/knowledge-standard.sphinx.conf
-/logs/httpd/
-!/logs/httpd/.gitkeep
-/logs/perconadb/
-/logs/mariadb/
-/logs/nginx/
-!/logs/nginx/.gitkeep
-/logs/php-fpm/
-!/logs/php-fpm/.gitkeep
-/logs/sphinx/
-!/logs/sphinx/.gitkeep
