@@ -29,11 +29,11 @@ RUN set -xe; \
         mbstring \
         pdo \
         pdo_mysql \
-        intl \
-    # Install Blackfire PHP extension.
-    && wget -q -O - https://packagecloud.io/gpg.key | apt-key add - \
-    && echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list \
-    && apt-get update \
+        intl
+# Install Blackfire PHP extension.
+RUN wget -q -O - https://packagecloud.io/gpg.key | apt-key add - \
+    && echo "deb [trusted=yes] http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list \
+    && apt-get update\
     && apt-get install blackfire-php \
     && docker-php-ext-enable blackfire \
     # cleanup
@@ -44,6 +44,17 @@ RUN set -xe; \
         /var/lib/apt/lists/* \
         /usr/src/php/ext/* \
         /tmp/*
+
+RUN apt-get update \
+    && apt-get -y install locales \
+    --no-install-recommends \
+    && rm -r /var/lib/apt/lists/* \
+    && sed -i 's/# en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen \
+    && sed -i 's/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/' /etc/locale.gen \
+    && sed -i 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen \
+    && sed -i 's/# fr_FR ISO-8859-1/fr_FR ISO-8859-1/' /etc/locale.gen \
+    && sed -i 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen
 
 COPY ./usr/local/etc/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
