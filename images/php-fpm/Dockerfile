@@ -13,8 +13,9 @@ RUN set -xe; \
         libmemcached-dev \
         # allow mailing to work
         sendmail \
+        # allow reading of image exif
+        exiftool \
     # pecl installs
-    && apt-get -yqq install exiftool \
     && docker-php-ext-configure exif \
     && docker-php-ext-install exif \
     && docker-php-ext-enable exif \
