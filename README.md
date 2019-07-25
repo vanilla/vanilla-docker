@@ -51,7 +51,7 @@ Before enabling make sure that:
 - You have set `Plugins.Sphinx.Server = sphinx` in your config
 - You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx/` in your config
 - You have enabled the sphinx plugin
-- You symlinked one of the [configs-available](./usr/local/etc/sphinx/configs-available) as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
+- You symlinked one of the [configs-available](./resources/usr/local/etc/sphinx/configs-available) as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
 - Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
 
 #### Re-indexing your database
