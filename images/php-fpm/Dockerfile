@@ -14,7 +14,7 @@ RUN set -xe; \
         # allow mailing to work
         sendmail \
     # pecl installs
-    && apt-get -yqq install exiftool\
+    && apt-get -yqq install exiftool \
     && docker-php-ext-configure exif \
     && docker-php-ext-install exif \
     && docker-php-ext-enable exif \
