@@ -33,7 +33,10 @@ RUN set -xe; \
         /var/lib/apt/lists/* \
         /usr/src/php/ext/* \
         /tmp/*
-
+RUN apt-get -yqq install exiftool
+RUN docker-php-ext-configure exif
+RUN docker-php-ext-install exif
+RUN docker-php-ext-enable exif
 COPY ./usr/local/etc/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./usr/local/etc/php/conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
