@@ -44,24 +44,45 @@ php-fpm with PHP 7.3
 
 Sphinx search service (service-sphinx.yml). 
 
+#### Installing Sphinx
+
 Before enabling make sure that:
 - Your database is named vanilla_dev
 - You have set `Plugins.Sphinx.Server = sphinx` in your config
 - You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx/` in your config
 - You have enabled the sphinx plugin
-- You symlinked one of the configs-available as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
+- You symlinked one of the [configs-available](./resources/usr/local/etc/sphinx/configs-available) as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
 - Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
-- If you need to have Sphinx indexes updated regularly run `./install-sphinx-cron.sh`
-  - by default it will reindex delta indexes every minute and reindex all indexes every 5 min.
-  - by default cron jobs hit `sphinx` container
-  - if your environment or tasked to be different you need to change  `install-sphinx-cron.sh`
+
+#### Re-indexing your database
+
+There are a couple of handly scripts to run the re-indexer. You can run them from the command line like so:
+
+```
+docker exec -t sphinx bash /root/index.delta.sh
+docker exec -t sphinx bash /root/index.all.sh
+```
+
+#### Installing the Sphinx indexr crontab
+
+If you need to have Sphinx indexes updated regularly run [install-sphinx-cron.sh](./images/sphinx/root/install-sphinx-cron.sh).
+- by default it will reindex delta indexes every minute and reindex all indexes every 5 min.
+- by default cron jobs hit `sphinx` container
+- if your environment or tasked to be different you need to change  `install-sphinx-cron.sh`
  accordingly
+
+ Note that the easiest way to run this script is through docker:
+
+ ```
+docker exec -t sphinx bash /root/install-sphinx-cron.sh
+ ```
 
 ## Setup
 
 *For this setup to work properly you need to clone all vanilla repositories in the same base directory*
 
 1. Get [Docker for OSX](https://download.docker.com/mac/stable/Docker.dmg) and install it.
+    
     - Do not forget to tune up the allocated Memory and CPUs. `Docker` > `Preferences` > `Advanced`
 1. Get [Composer](https://getcomposer.org/) and install it.
 1. Create a directory for your project. In this example, we'll use `my-vanilla-project`, but you can use any name.
@@ -98,6 +119,7 @@ Before enabling make sure that:
     ```
     and voila -> [dev.vanilla.localhost](https://dev.vanilla.localhost/) shows the Vanilla installer.
 1. Run the installer!
+    
     - It is recommended to use `vanilla_dev` as the database name since some services are configured to use that database.
 
 To properly stop the containers you need to run `docker-compose down`.
