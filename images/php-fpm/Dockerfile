@@ -13,12 +13,16 @@ RUN set -xe; \
         libmemcached-dev \
         # allow mailing to work
         sendmail \
+        # allow reading of image exif
+        exiftool \
     # pecl installs
+    && docker-php-ext-install exif \
     && pecl install xdebug \
     && pecl install memcached \
     # enable pecl installed extentions
     && docker-php-ext-enable xdebug \
     && docker-php-ext-enable memcached \
+    && docker-php-ext-enable exif \
     # built in extensions install
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) \
@@ -33,7 +37,6 @@ RUN set -xe; \
         /var/lib/apt/lists/* \
         /usr/src/php/ext/* \
         /tmp/*
-
 COPY ./usr/local/etc/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./usr/local/etc/php/conf.d/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./usr/local/etc/php/conf.d/10-xdebug.ini /usr/local/etc/php/conf.d/10-xdebug.ini
