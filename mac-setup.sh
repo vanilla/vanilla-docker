@@ -73,7 +73,7 @@ done
 # https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-file-as-a-data-volume#creating-and-mounting-a-data-volume-container
 DATA_STORAGE_CHECK=$(docker volume ls -q | grep datastorage);
 if [ ! -n "$DATA_STORAGE_CHECK" ]; then
-    docker volume create --name=datastorage --label="Persistent data storage" > /dev/null
+    docker volume create --name=datastorage --label="Persistent_data_storage" > /dev/null
 fi
 
 # Install our certificate for *.vanilla.localhost
