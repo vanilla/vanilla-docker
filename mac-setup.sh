@@ -5,6 +5,7 @@ HOSTNAMES=(
     database
     dev.vanilla.localhost
     embed.vanilla.localhost
+    vanilla.localhost
     memcached
     sso.vanilla.localhost
     vanilla.test
