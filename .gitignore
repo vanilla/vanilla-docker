@@ -27,6 +27,7 @@ _notes
 !/resources/etc/nginx/sites-available/advanced-embed.vanilla.localhost.conf
 !/resources/etc/nginx/sites-available/comments-embed.vanilla.localhost.conf
 /resources/etc/nginx/sites-enabled/*
+!/resources/etc/nginx/sites-enabled/vanilla.localhost.conf
 /resources/usr/local/apache2/conf.d/*
 !/resources/usr/local/apache2/conf.d/vanilla.localhost.ssl.conf
 /resources/usr/local/etc/php/conf.d/*
