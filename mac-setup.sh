@@ -5,6 +5,7 @@ HOSTNAMES=(
     database
     dev.vanilla.localhost
     embed.vanilla.localhost
+    vanilla.localhost
     memcached
     sso.vanilla.localhost
     vanilla.test
@@ -22,9 +23,15 @@ if [ ! -n "$DOCKER_CHECK" ]; then
     exit 1;
 fi
 
-CERTIFICATE_PATH="./resources/certificates/vanilla.localhost.crt";
-if [ ! -f "$CERTIFICATE_PATH" ]; then
-    echo "Missing $CERTIFICATE_PATH certificate. Was it renamed or something?";
+CERTIFICATE_PATH1="./resources/certificates/wildcard.vanilla.localhost.crt";
+if [ ! -f "$CERTIFICATE_PATH1" ]; then
+    echo "Missing $CERTIFICATE_PATH1 certificate. Was it renamed or something?";
+    exit 1;
+fi
+
+CERTIFICATE_PATH2="./resources/certificates/vanilla.localhost.crt";
+if [ ! -f "$CERTIFICATE_PATH2" ]; then
+    echo "Missing $CERTIFICATE_PATH2 certificate. Was it renamed or something?";
     exit 1;
 fi
 
@@ -64,7 +71,7 @@ fi
 
 # Allows us to use database as the hostname to connect to the database.
 for HOSTNAME in ${HOSTNAMES[@]}; do
-    HOST_ENTRY=$(grep "$HOSTNAME" /etc/hosts);
+    HOST_ENTRY=$(grep ^"$HOSTNAME" /etc/hosts);
     if [ ! -n "$HOST_ENTRY" ]; then
         echo '127.0.0.1 '"$HOSTNAME" \# Added from vanilla-docker/mac-setup.sh >> /etc/hosts
     fi
@@ -77,7 +84,13 @@ if [ ! -n "$DATA_STORAGE_CHECK" ]; then
 fi
 
 # Install our certificate for *.vanilla.localhost
-CERTIFICATE_CHECK=$(security find-certificate -c '*.vanilla.localhost' 2&> /dev/null);
-if [ ! -n "$CERTIFICATE_CHECK" ]; then
-    security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "$CERTIFICATE_PATH";
+CERTIFICATE_CHECK1=$(security find-certificate -c '*.vanilla.localhost' 2&> /dev/null);
+if [ ! -n "$CERTIFICATE_CHECK1" ]; then
+    security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "$CERTIFICATE_PATH1";
+fi
+
+# Install our certificate for *.vanilla.localhost
+CERTIFICATE_CHECK2=$(security find-certificate -c 'vanilla.localhost' 2&> /dev/null);
+if [ ! -n "$CERTIFICATE_CHECK2" ]; then
+    security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "$CERTIFICATE_PATH2";
 fi
