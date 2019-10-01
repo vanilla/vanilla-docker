@@ -55,6 +55,10 @@ Before enabling make sure that:
 - You symlinked one of the [configs-available](./resources/usr/local/etc/sphinx/configs-available) as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
 - Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
 
+#### Sphinx unit testing config
+- Ensure that your phpunit.xml and phpunit.dist.xml have the following environmental value:
+`<env name="TEST_SPHINX_HOST" value="sphinx" />`
+
 #### Re-indexing your database
 
 There are a couple of handly scripts to run the re-indexer. You can run them from the command line like so:
