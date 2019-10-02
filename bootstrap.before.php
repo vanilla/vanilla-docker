@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . "/resources/sphinx/sphinxapi.php";
+
 /**
  * This file will make Vanilla use a different config depending on folder you're on.
  */
