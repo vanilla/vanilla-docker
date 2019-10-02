@@ -1,3 +1,3 @@
-DELETE FROM mysql.user WHERE Host = '%' AND User = 'travis';
-CREATE USER 'travis'@'%' IDENTIFIED BY '';
-GRANT ALL ON *.* TO 'travis'@'%' WITH GRANT OPTION;
+DELETE FROM mysql.user WHERE Host = '%' AND User = 'circleci';
+CREATE USER 'circleci'@'%' IDENTIFIED BY '';
+GRANT ALL ON *.* TO 'circleci'@'%' WITH GRANT OPTION;
