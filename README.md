@@ -57,6 +57,8 @@ Before enabling make sure that:
 - For unit tests use the everything.sphinx.conf
 
 #### Sphinx unit testing config
+- Ensure you have a test database `vanilla_test`.
+- Ensure you are using the `everything.sphinx.conf` config for sphinx.
 - Ensure that your phpunit.xml and phpunit.dist.xml have the following environmental value:
 `<env name="TEST_SPHINX_HOST" value="sphinx" />`
 
