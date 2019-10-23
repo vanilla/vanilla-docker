@@ -31,6 +31,7 @@ nginx web server
 
 - Serve:
     - https://dev.vanilla.localhost (main forum)
+    - https://vanilla.localhost/dev (directory-based main forum, see [the docs](docs/vanilla-localhost-dirs.md))
     - https://sso.vanilla.localhost ([stub-sso-providers](https://github.com/vanilla/stub-sso-providers))
     - https://embed.vanilla.localhost ([stub-embed-providers](https://github.com/vanilla/stub-embed-providers))
     - https://advanced-embed.vanilla.localhost ([stub-embed-providers](https://github.com/vanilla/stub-embed-providers))
@@ -53,6 +54,13 @@ Before enabling make sure that:
 - You have enabled the sphinx plugin
 - You symlinked one of the [configs-available](./resources/usr/local/etc/sphinx/configs-available) as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
 - Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
+- For unit tests use the everything.sphinx.conf
+
+#### Sphinx unit testing config
+- Ensure you have a test database `vanilla_test`.
+- Ensure you are using the `everything.sphinx.conf` config for sphinx.
+- Ensure that your phpunit.xml and phpunit.dist.xml have the following environmental value:
+`<env name="TEST_SPHINX_HOST" value="sphinx" />`
 
 #### Re-indexing your database
 
@@ -84,6 +92,7 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
 1. Get [Docker for OSX](https://download.docker.com/mac/stable/Docker.dmg) and install it.
     
     - Do not forget to tune up the allocated Memory and CPUs. `Docker` > `Preferences` > `Advanced`
+1. Get [Brew, Yarn & Node](https://staff.vanillaforums.com/kb/articles/135-install-node-yarn)
 1. Get [Composer](https://getcomposer.org/) and install it.
 1. Create a directory for your project. In this example, we'll use `my-vanilla-project`, but you can use any name.
 1. Move into your project directory.
