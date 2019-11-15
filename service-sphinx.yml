@@ -21,3 +21,4 @@ services:
             - "./resources/usr/local/etc/sphinx/configs-available/:/usr/local/etc/sphinx/configs-available/:cached"
         ports:
             - "9399:9399"
+            - "9312:9312"
