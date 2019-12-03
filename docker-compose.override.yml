@@ -16,24 +16,12 @@ services:
             - "./logs/${VANILLA_DOCKER_DATABASE}:/var/log/mysql:delegated"
             - "./resources/etc/mysql/conf.d/:/etc/mysql/conf.d/"
             - "datastorage:/var/lib/mysql"
-            - code:/srv/vanilla-repositories
 
     php-fpm:
         depends_on:
             - "database"
-        volumes:
-            - code:/srv/vanilla-repositories
-    nginx:
-        volumes:
-            - code:/srv/vanilla-repositories
 
 volumes:
     datastorage:
         # Created by our setup script.
         external: true
-    code:
-        driver: local
-        driver_opts:
-            type: nfs
-            o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-            device: :/System/Volumes/Data/Users/stephanelafleche/Documents/vagrant-vanilla/git_repos
