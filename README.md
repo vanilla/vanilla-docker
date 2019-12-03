@@ -130,6 +130,8 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
 1. Run the installer!
     
     - It is recommended to use `vanilla_dev` as the database name since some services are configured to use that database.
+    - It is recommended to use `database` for the host name.
+    - It is recommended to use `root` as the username.
 
 To properly stop the containers you need to run `docker-compose down`.
 
