@@ -1,12 +1,11 @@
-FROM leodido/sphinxsearch:2.2.10
+FROM vanillaryan/sphinxsearch
 
-RUN yum install sed \
-  && yum install -y epel-release \
-  && sed -i "s/mirrorlist=https/mirrorlist=http/" /etc/yum.repos.d/epel.repo \
-  && yum clean all && yum install -y compat-readline5 \
-  && yum clean all && yum install -y socat
+RUN yum install epel-release mysql mysql-devel python3 socat cronie -y
 
-RUN yum -y install cronie ; yum clean all
+# Systemd compatibility fix under CentOS
+COPY ./systemctl3.py /usr/bin/systemctl
+RUN chmod 755 /usr/bin/systemctl
+
 RUN ["mkdir", "-p", "/usr/local/etc/sphinx"]
 RUN ["mkdir", "-p", "/usr/local/etc/sphinx/conf.d"]
 RUN ["mkdir", "-p", "/usr/local/etc/sphinx/data"]
