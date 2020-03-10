@@ -21,5 +21,4 @@ RUN /root/install-sphinx-cron.sh
 
 CMD /root/startup.sh
 
-EXPOSE 9312
-EXPOSE 9399
+EXPOSE 9312 9306 9399
