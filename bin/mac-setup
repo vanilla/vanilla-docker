@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+
+ORIG_PWD=$(pwd)
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+
+DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+VANILLA_DOCKER=$(dirname "$DIR")
+
+SEPARATOR="==================================";
+
+echo "Installing Dependencies"
+echo $SEPARATOR
+
+if [ -x "$(command -v brew)" ]; then
+    echo "Brew is already installed."
+else
+    echo "Installing Brew"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+if [ -x "$(command -v php)" ]; then
+    echo "PHP is already installed."
+else
+    echo "Installing PHP"
+    echo $SEPARATOR
+    brew install php
+fi
+
+if [ -x "$(command -v composer)" ]; then
+    echo "Composer is already installed."
+else
+    echo "Installing Composer"
+    echo $SEPARATOR
+    brew install composer
+fi
+
+
+if [ -x "$(command -v node)" ]; then
+    echo "Node is already installed."
+else
+    echo "Installing Node"
+    echo $SEPARATOR
+    brew install node@12
+fi
+
+if [ -x "$(command -v yarn)" ]; then
+    echo "Yarn is already installed."
+else
+    echo "Installing Yarn"
+    echo $SEPARATOR
+    npm i -g yarn
+fi
+
+if [ -x "$(command -v unison)" ]; then
+    echo "Unison is already installed."
+else
+    echo "Installing Unison"
+    echo $SEPARATOR
+    brew install unison
+fi
+
+if [ -x "$(command -v docker-sync)" ]; then
+    echo "Docker-sync is already installed."
+else
+    echo "Installing Docker-sync"
+    echo $SEPARATOR
+    gem install --user-install docker-sync
+fi
+
+echo "Configuring Locale Certificates"
+echo $SEPARATOR
+echo "You will be prompted for your administrator password to proceed."
+sudo "$VANILLA_DOCKER/mac-setup-root"
+
+echo "Symlinking Easy-Access Commands"
+echo $SEPARATOR
+ln -sf "$VANILLA_DOCKER/bin/start" /usr/local/bin/vanilla-start
+ln -sf "$VANILLA_DOCKER/bin/stop" /usr/local/bin/vanilla-stop
+
+echo "New Commands:"
+echo "vanilla-start"
+echo "vanilla-stop"

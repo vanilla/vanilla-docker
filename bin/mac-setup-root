@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [[ $UID != 0 ]]; then
+    echo "Please run this script with sudo:";
+    echo "sudo $0 $*";
+    exit 1;
+fi
+
 HOSTNAMES=(
     advanced-embed.vanilla.localhost
     database
@@ -10,12 +16,6 @@ HOSTNAMES=(
     sso.vanilla.localhost
     vanilla.test
 );
-
-if [[ $UID != 0 ]]; then
-    echo "Please run this script with sudo:";
-    echo "sudo $0 $*";
-    exit 1;
-fi
 
 DOCKER_CHECK=$(command -v docker);
 if [ ! -n "$DOCKER_CHECK" ]; then

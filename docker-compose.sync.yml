@@ -1,0 +1,19 @@
+# this is our development docker-compose building on top of the production docker-compose, just mounting
+# the sync image - not redefining anything else
+
+version: "3.5"
+services:
+  php-fpm:
+    volumes:
+      - app-code-sync:/srv/vanilla-repositories:nocopy # nocopy is important
+  nginx:
+    volumes:
+      - app-code-sync:/srv/vanilla-repositories:nocopy # nocopy is important
+  httpd:
+    volumes:
+      - app-code-sync:/srv/vanilla-repositories:nocopy # nocopy is important
+
+# that the important thing
+volumes:
+  app-code-sync:
+    external: true
