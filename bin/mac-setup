@@ -16,14 +16,16 @@ SEPARATOR="==================================";
 echo "Installing Dependencies"
 echo $SEPARATOR
 
-if [ -x "$(command -v brew)" ]; then
+if [ -x "$(command -v brew)" ]
+then
     echo "Brew is already installed."
 else
     echo "Installing Brew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-if [ -x "$(command -v php)" ]; then
+if [ -x "$(command -v php)" ]
+then
     echo "PHP is already installed."
 else
     echo "Installing PHP"
@@ -31,7 +33,8 @@ else
     brew install php
 fi
 
-if [ -x "$(command -v composer)" ]; then
+if [ -x "$(command -v composer)" ]
+then
     echo "Composer is already installed."
 else
     echo "Installing Composer"
@@ -40,7 +43,8 @@ else
 fi
 
 
-if [ -x "$(command -v node)" ]; then
+if [ -x "$(command -v node)" ]
+then
     echo "Node is already installed."
 else
     echo "Installing Node"
@@ -48,7 +52,8 @@ else
     brew install node@12
 fi
 
-if [ -x "$(command -v yarn)" ]; then
+if [ -x "$(command -v yarn)" ]
+then
     echo "Yarn is already installed."
 else
     echo "Installing Yarn"
@@ -56,7 +61,8 @@ else
     npm i -g yarn
 fi
 
-if [ -x "$(command -v unison)" ]; then
+if [ -x "$(command -v unison)" ]
+then
     echo "Unison is already installed."
 else
     echo "Installing Unison"
@@ -64,12 +70,57 @@ else
     brew install unison
 fi
 
-if [ -x "$(command -v docker-sync)" ]; then
+# # there are some issues with version of ruby that aren't from brew.
+# if [[ $(which ruby) == "/usr/bin/ruby" ]]
+# then
+#     echo "The system version of ruby is all that has been found."
+#     echo "This is insufficient for vanilla-docker so a version from brew will be installed"
+#     echo $SEPARATOR
+#     brew install ruby
+# elif [ -x "$(command -v ruby)" ]
+# then
+#     echo "Ruby is already installed."
+# else
+#     echo "Installing ruby"
+#     echo $SEPARATOR
+#     brew install ruby
+# fi
+
+if [ -x "$(command -v docker-sync)" ]
+then
     echo "Docker-sync is already installed."
 else
     echo "Installing Docker-sync"
     echo $SEPARATOR
-    gem install --user-install docker-sync
+    gem install --install-dir /usr/local/bin docker-sync
+fi
+
+if ! [ -x "$(command -v docker-sync)" ]
+then
+    PATH_CMD="export PATH=\"\$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:\$PATH\""
+
+    echo "Adding Rubygems to your PATH"
+    echo ""
+    echo ""
+    echo $SEPARATOR
+    echo ""
+    echo "You will need to restart you terminal after this"
+    echo ""
+    echo $SEPARATOR
+    echo ""
+    echo ""
+
+    eval "$PATH_CMD"
+    touch "$HOME/.bash_profile"
+    touch "$HOME/.zshenv"
+    grep -qF -- "$PATH_CMD" "$HOME/.bash_profile" || echo "$PATH_CMD" >> "$HOME/.bash_profile"
+    echo "$PATH_CMD" >> "$HOME/.zshenv"
+
+    if [ -x "$(command -v fish)" ]
+    then
+        echo "set RUBY_GEM_PATH (ruby -r rubygems -e 'puts Gem.user_dir')/bin" >> "$HOME/.config/fish/config.fish"
+        echo "set -gx PATH \$RUBY_GEM_PATH \$PATH" >> "$HOME/.config/fish/config.fish"
+    fi
 fi
 
 echo "Configuring Locale Certificates"
