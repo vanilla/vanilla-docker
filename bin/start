@@ -12,13 +12,25 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 VANILLA_DOCKER=$(dirname "$DIR")
 cd $VANILLA_DOCKER
 
-echo "Starting file synchronization. This may take a while the first time you run it."
-echo "=========================="
+echo "Starting File Sync Service"
+echo "Note this may take a while the first time."
+echo "In particular it may take a while on something like this"
+echo ""
+echo "doing initial sync with unison
+Unison 2.51.2 (ocaml 4.06.1): Contacting server...
+Looking for changes"
+echo ""
+echo "Proceed anyways. I promise it's worth the wait."
+echo "Subsequent starts should be faster."
+echo "=========================================="
+echo ""
 docker-sync start
 
 echo "";
 echo "Starting vanilla-docker"
 echo "=========================="
+echo ""
+
 docker-compose \
 -f "$VANILLA_DOCKER/docker-compose.yml" \
 -f "$VANILLA_DOCKER/docker-compose.override.yml" \
