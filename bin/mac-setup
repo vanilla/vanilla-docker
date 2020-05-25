@@ -126,7 +126,7 @@ fi
 echo "Configuring Locale Certificates"
 echo $SEPARATOR
 echo "You will be prompted for your administrator password to proceed."
-sudo "$VANILLA_DOCKER/mac-setup-root"
+sudo "$VANILLA_DOCKER/bin/mac-setup-root"
 
 echo "Symlinking Easy-Access Commands"
 echo $SEPARATOR
