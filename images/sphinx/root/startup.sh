@@ -13,6 +13,4 @@ done
 
 socat tcp-l:9399,fork system:/root/listen.9399.sh &
 
-service crond start && indexer --all && searchd --nodetach
-
-
+systemctl restart crond && indexer --all && searchd --nodetach
