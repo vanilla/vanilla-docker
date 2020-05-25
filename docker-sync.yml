@@ -1,0 +1,23 @@
+version: "2"
+
+options:
+  compose-file-path:
+    - "docker-compose.yml"
+    - "docker-compose.override.yml"
+    - "service-memcached.yml"
+    - "service-sphinx.yml"
+  compose-dev-file-path: 'docker-compose.sync.yml'
+  verbose: true
+syncs:
+  app-code-sync: # tip: add -sync and you keep consistent names as a convention
+    src: '../'
+    watch_excludes: ['*/.docker-sync', '*/.git', '*/node_modules', '*/bower_components']
+    sync_excludes: ['*/.docker-sync', '*/.git', '*/node_modules', '*/bower_components']
+    # optional: use this to switch monit monitoring on
+    monit_enable: true
+
+    # optional: use this to change how many seconds between each monit check (cycle)
+    monit_interval: 5
+
+    # optional: use this to change how many consecutive times high cpu usage must be observed before unison is restarted
+    monit_high_cpu_cycles: 2
