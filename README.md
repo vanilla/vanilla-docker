@@ -149,7 +149,30 @@ _For this setup to work properly you need to clone all vanilla repositories in t
 
 To properly stop the containers run `vanilla-stop`
 
-### Seeing logs
+## Updating an existing vanilla-docker installation
+
+- Pull the latest version of `vanilla-docker`
+- Restart docker entirely.
+
+  ![image](https://user-images.githubusercontent.com/1770056/82736370-4a8f9380-9cf7-11ea-8f18-26f965e9abe1.png)
+
+- Navigate to `vanilla-docker`
+- Run `bin/mac-setup` (even if you already ran it before).
+- Run `vanilla-start` from anywhere.
+
+### Updating to a RAW data format
+
+You may see a message "It looks like your docker volume is not in the RAW format." when trying to proceed with your upgrade.
+
+In order to changer to the RAW data format for docker, you need to do the following:
+
+- Backup any databases you have.
+- Open the docker troubleshooting page. (Open docker settings, click the "Bug" icon next to settings.)
+- Click on `Reset disk image`.
+- Wait until that completes.
+- Run the setup script again.
+- Start docker `vanilla-start`.
+- Restore your databases.
 
 ##### Running optional services
 

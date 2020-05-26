@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+DATA_STORAGE_CHECK=$(docker volume ls -q | grep datastorage);
+
+if [ ! -n "$DATA_STORAGE_CHECK" ]; then
+    echo "Looks like the data storage volume isn't configured. Did you forget to run the setup script?"
+    exit 1;
+fi
+
 ORIG_PWD=$(pwd)
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink

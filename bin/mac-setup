@@ -1,5 +1,21 @@
 #!/usr/bin/env bash
 
+# Upgrade check
+
+DOCKER_RAW_DOCKER_PATH="/$HOME/Library/Containers/com.docker.docker/Data/vms/0/Docker.raw"
+DOCKER_RAW_DATA_PATH="/$HOME/Library/Containers/com.docker.docker/Data/vms/0/Data.raw"
+if [ ! -f "$DOCKER_RAW_DOCKER_PATH" ] && [ ! -f "$DOCKER_RAW_DATA_PATH" ]
+then
+    echo "It looks like your docker volume is not in the RAW format."
+    echo "This can cause instability and issues with the latest version of vanilla-docker".
+    echo "In order to fix this, see the upgrade guide."
+    echo ""
+    echo "https://github.com/vanilla/vanilla-docker/tree/master/README.md#updating-to-a-raw-data-format"
+    exit 1;
+fi
+
+# Path restoration
+
 ORIG_PWD=$(pwd)
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
