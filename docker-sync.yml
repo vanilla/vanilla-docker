@@ -11,8 +11,8 @@ options:
 syncs:
   app-code-sync: # tip: add -sync and you keep consistent names as a convention
     src: '../'
-    watch_excludes: ['*/.docker-sync', '*/.git', '*/node_modules', '*/bower_components']
-    sync_excludes: ['*/.docker-sync', '*/.git', '*/node_modules', '*/bower_components']
+    watch_excludes: ['*/.docker-sync', '*/.git', '*/node_modules', '*/bower_components', "*/.idea", "vanilla-docker/logs"]
+    sync_excludes: ['*/.docker-sync', '*/.git', '*/node_modules', '*/bower_components', "*/.idea", "vanilla-docker/logs"]
     # optional: use this to switch monit monitoring on
     monit_enable: true
 
