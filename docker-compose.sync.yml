@@ -6,12 +6,7 @@ services:
   php-fpm:
     volumes:
       - app-code-sync:/srv/vanilla-repositories:nocopy # nocopy is important
-  nginx:
-    volumes:
-      - app-code-sync:/srv/vanilla-repositories:nocopy # nocopy is important
-  httpd:
-    volumes:
-      - app-code-sync:/srv/vanilla-repositories:nocopy # nocopy is important
+      - ./logs/php-fpm:/var/log/php-fpm:delegated
 
 # that the important thing
 volumes:
