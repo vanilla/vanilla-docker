@@ -21,3 +21,6 @@ syncs:
 
     # optional: use this to change how many consecutive times high cpu usage must be observed before unison is restarted
     monit_high_cpu_cycles: 2
+
+    # Map the user to "www-data" which defaults to 33 on Ubunto.
+    sync_userid: '33'
