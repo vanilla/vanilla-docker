@@ -29,6 +29,8 @@ Looking for changes"
 echo ""
 echo "Proceed anyways. I promise it's worth the wait."
 echo "Subsequent starts should be faster."
+echo ""
+echo "It is recommended not to modify in any source code files during this first sync."
 echo "=========================================="
 echo ""
 docker-sync start

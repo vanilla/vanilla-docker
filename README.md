@@ -232,7 +232,23 @@ See [Make unit tests work within PhpStorm](./docs/unit-tests.md).
 
 ## F.A.Q
 
-Q. Why is everything so slow?
+Q. My syncronization seems to not be working.
 
-A. You are probably running on the APFS file system that became the standard with macOS High Sierra and which has pretty bad performance with Docker for Mac.
-Having the database on your host instead of inside docker might help a lot. See [#10](https://github.com/vanilla/vanilla-docker/issues/10).
+A. There are multiple reasons the sync could fail. The primary one being that you are mounting too many files into your volume. If you have files in the parent directory of vanilla-docker that are not related to _running_ vanilla, it's recommended to move these.
+
+Another reason might be mass-modification of files. If you modify 100k+ files at once, with a command like `chmod -r` or `chown -r` then you will likely need to reset your sync.
+
+These are the methods that you can use to troubleshoot, in order of fastest to slowest.
+
+- Restart vanilla-docker and docker.
+  - `vanilla-stop`
+  - Docker Menu -> Restart
+  - Wait for restart to finish...
+  - `vanilla-start`
+- Reboot your computer.
+- Reset your sync.
+  - `vanilla-stop`
+  - Docker Menu -> Restart
+  - Wait for restart to finish...
+  - `cd /path/to/vanilla-docker && docker-sync clean`
+  - `vanilla-start`
