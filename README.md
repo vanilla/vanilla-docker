@@ -168,7 +168,7 @@ In order to changer to the RAW data format for docker, you need to do the follow
 
 - Backup any databases you have.
 - Open the docker troubleshooting page. (Open docker settings, click the "Bug" icon next to settings.)
-- Click on `Reset disk image`.
+- Click on `Clean / Purge data` ~`Reset disk image`.~ (It was renamed recently)
 - Wait until that completes.
 - Run the setup script again.
 - Start docker `vanilla-start`.
