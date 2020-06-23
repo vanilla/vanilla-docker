@@ -3,7 +3,7 @@
 # Upgrade check
 
 DOCKER_RAW_DOCKER_PATH="/$HOME/Library/Containers/com.docker.docker/Data/vms/0/Docker.raw"
-DOCKER_RAW_DATA_PATH="/$HOME/Library/Containers/com.docker.docker/Data/vms/0/Data.raw"
+DOCKER_RAW_DATA_PATH="/$HOME/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw"
 if [ ! -f "$DOCKER_RAW_DOCKER_PATH" ] && [ ! -f "$DOCKER_RAW_DATA_PATH" ]
 then
     echo "It looks like your docker volume is not in the RAW format."
