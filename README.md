@@ -39,7 +39,7 @@ nginx web server
 
 ### php-fpm
 
-php-fpm with PHP 7.7
+php-fpm with PHP 7.4
 
 ### Sphinx
 
