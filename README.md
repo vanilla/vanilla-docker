@@ -114,6 +114,7 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
     - Safely update your `/etc/hosts`.
     - Add `192.0.2.1` as a loopback IP address.
     - Create a docker volume named "datastorage" which will contain the database data.
+1. Move back into the `vanilla` directory.
 1. Run `docker-compose up --build` (It will take a while the first time). You'll know it worked if you see something like
     ```
     Successfully built…
