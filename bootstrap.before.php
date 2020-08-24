@@ -21,6 +21,7 @@ call_user_func(function () {
         [$root, $_] = explode('/', ltrim($_SERVER['SCRIPT_NAME'], '/'), 2) + ['', ''];
         // Use a config specific to the site.
         $configPath = PATH_ROOT . "/conf/$host/$root.php";
+        $_SERVER['NODE_SLUG'] = $root;
     }
 
     if (!file_exists(dirname($configPath))) {
