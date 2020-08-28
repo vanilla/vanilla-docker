@@ -46,6 +46,7 @@ services:
                     - "dev.vanilla.localhost"
                     - "vanilla.test"
                     - "vanilla.localhost"
+                    - "webpack.vanilla.localhost"
         ports:
             - "80:80"
             - "8080:8080"
