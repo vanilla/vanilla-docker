@@ -38,7 +38,7 @@ RUN set -xe; \
     /var/lib/apt/lists/* \
     /usr/src/php/ext/* \
     /tmp/*
-COPY ./conf/php-fpm.conf /usr/local/etc/php/conf.d/php-fpm.conf
+COPY ./conf/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./conf/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./conf/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
