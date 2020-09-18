@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Symlink extra xdebug stuff in required, otherwise deleted
-
 # Configure sendmail
 sendmailConfigured=$(grep 'noreply@dev.vanilla.localhost' /etc/hosts)
 if [ -z "$sendmailConfigured" ]; then
