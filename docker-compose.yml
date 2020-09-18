@@ -63,24 +63,30 @@ services:
     php-fpm:
         build:
             context: "./images/php-fpm"
+            dockerfile: Dockerfile
         container_name: "php-fpm"
-        environment:
-            - "PHP_INI_SCAN_DIR=:/usr/local/etc/php/custom.conf.d" # Allow users to override configs
+        environment: &php-env
             - "TEST_BASEURL"
             - "TEST_DB_HOST"
             - "TEST_DB_NAME"
             - "TEST_DB_USER"
             - "TEST_DB_PASSWORD"
-        networks:
+        networks: &php-networks
             - "vanilla_network"
-        volumes:
+        volumes: &php-volumes
             - "shared:/shared:cached" # expose php-fpm socket
             - "./logs/php-fpm:/var/log/php-fpm:delegated"
             - "./resources/certificates:/usr/local/share/ca-certificates:cached" # Mount extra certificates
             - "./resources/sphinx:/sphinx:cached" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
-            - "./resources/usr/local/etc/php/conf.d:/usr/local/etc/php/custom.conf.d:cached"
-            - "./resources/usr/local/etc/php/fpm/pool.d:/usr/local/etc/php/fpm/pool.d:cached"
             - "../:/srv/vanilla-repositories:cached"
+    php-fpm-xdebug:
+        build:
+            context: "./images/php-fpm"
+            dockerfile: DockerfileXDebug
+        container_name: "php-fpm-xdebug"
+        environment: *php-env
+        networks: *php-networks
+        volumes: *php-volumes
 
 volumes:
     shared:
