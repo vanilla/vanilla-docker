@@ -29,3 +29,5 @@ services:
         networks:
             - "vanilla_network"
         container_name: memcached
+        ports:
+            - "11211:11211"
