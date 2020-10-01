@@ -21,9 +21,11 @@ RUN set -xe; \
         && docker-php-ext-install exif \
         && pecl install xdebug \
         && pecl install memcached \
+        && pecl install apcu \
         # enable pecl installed extentions
         && docker-php-ext-enable xdebug \
         && docker-php-ext-enable memcached \
+        && docker-php-ext-enable apcu \
         && docker-php-ext-enable exif \
         && docker-php-ext-enable opcache \
         # built in extensions install
