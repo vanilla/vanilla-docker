@@ -17,26 +17,28 @@ RUN set -xe; \
         sendmail \
         # allow reading of image exif
         exiftool \
-        # pecl installs
-        && docker-php-ext-install exif \
-        && pecl install xdebug \
-        && pecl install memcached \
-        && pecl install apcu \
-        # enable pecl installed extentions
-        && docker-php-ext-enable xdebug \
-        && docker-php-ext-enable memcached \
-        && docker-php-ext-enable apcu \
-        && docker-php-ext-enable exif \
-        && docker-php-ext-enable opcache \
-        # built in extensions install
-        && docker-php-ext-configure gd --with-freetype --with-jpeg \
-        && docker-php-ext-install -j$(nproc) \
+    # pecl installs
+    && docker-php-ext-install exif \
+    && pecl install xdebug \
+    && pecl install memcached \
+    && pecl install apcu \
+    # enable pecl installed extentions
+    && docker-php-ext-enable xdebug \
+    && docker-php-ext-enable memcached \
+    && docker-php-ext-enable apcu \
+    && docker-php-ext-enable exif \
+    && docker-php-ext-enable opcache \
+    # built in extensions install
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
         gd \
         mbstring \
         pdo \
         pdo_mysql \
         intl \
-        # cleanup
+    # syslogd
+    && apt-get install -y inetutils-syslogd \
+    # cleanup
     && pecl clear-cache \
     && rm -rf \
     /var/lib/apt/lists/* \

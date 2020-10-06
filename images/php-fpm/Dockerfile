@@ -18,22 +18,24 @@ RUN set -xe; \
         # allow reading of image exif
         exiftool \
         # pecl installs
-        && docker-php-ext-install exif \
-        && pecl install memcached \
-        && pecl install apcu \
-        # enable pecl installed extentions
-        && docker-php-ext-enable memcached \
-        && docker-php-ext-enable apcu \
-        && docker-php-ext-enable exif \
-        && docker-php-ext-enable opcache \
-        # built in extensions install
-        && docker-php-ext-configure gd --with-freetype --with-jpeg \
-        && docker-php-ext-install -j$(nproc) \
+    && docker-php-ext-install exif \
+    && pecl install memcached \
+    && pecl install apcu \
+    # enable pecl installed extentions
+    && docker-php-ext-enable memcached \
+    && docker-php-ext-enable apcu \
+    && docker-php-ext-enable exif \
+    && docker-php-ext-enable opcache \
+    # built in extensions install
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
         gd \
         mbstring \
         pdo \
         pdo_mysql \
         intl \
+    # syslogd
+    && apt-get install -y inetutils-syslogd \
     # cleanup
     && pecl clear-cache \
     && rm -rf \
