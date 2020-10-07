@@ -6,7 +6,7 @@ require_once __DIR__ . "/resources/sphinx/sphinxapi.php";
  * This file will make Vanilla use a different config depending on folder you're on.
  */
 call_user_func(function () {
-    $host = $_SERVER['HTTP_HOST'];
+    $host = $_SERVER['HTTP_HOST'] ?? 'default';
     [$host, $port] = explode(':', $host, 2) + ['', ''];
 
     // Whitelist to a domain. This can probably get removed at some point.
