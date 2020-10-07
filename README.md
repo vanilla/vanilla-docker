@@ -39,11 +39,16 @@ nginx web server
 
 ### php-fpm
 
-php-fpm with PHP 7.4
+php-fpm with PHP 7.4 and rsyslogd.
+
+The php-fpm container comes in two flavours, `standard` and `xdebug`.
+The nginx container takes care of routing the request to the appropriate php-fpm flavour based on if your request needs debugging or not.
+
+Both versions integrate `rsyslogd` to support PHP's `syslog()`. `/var/log/syslog` is tailed to `stdout` and it is prompted by `docker-compose` in the usual way (`docker-compose logs -f`, `docker-compose up --build`, etc)
 
 ### Sphinx
 
-Sphinx search service (service-sphinx.yml). 
+Sphinx search service (service-sphinx.yml).
 
 #### Installing Sphinx
 
@@ -90,7 +95,7 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
 *For this setup to work properly you need to clone all vanilla repositories in the same base directory*
 
 1. Get [Docker for OSX](https://download.docker.com/mac/stable/Docker.dmg) and install it.
-    
+
     - Do not forget to tune up the allocated Memory and CPUs. `Docker` > `Preferences` > `Advanced`
 1. Get [Brew, Yarn & Node](https://staff.vanillaforums.com/kb/articles/135-install-node-yarn)
 1. Get [Composer](https://getcomposer.org/) and install it.
@@ -128,7 +133,7 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
     ```
     and voila -> [dev.vanilla.localhost](https://dev.vanilla.localhost/) shows the Vanilla installer.
 1. Run the installer!
-    
+
     - It is recommended to use `vanilla_dev` as the database name since some services are configured to use that database.
     - It is recommended to use `database` for the host name.
     - It is recommended to use `root` as the username.
@@ -196,4 +201,3 @@ Q. Why is everything so slow?
 
 A. You are probably running on the APFS file system that became the standard with macOS High Sierra and which has pretty bad performance with Docker for Mac.
 Having the database on your host instead of inside docker might help a lot. See [#10](https://github.com/vanilla/vanilla-docker/issues/10).
-
