@@ -39,12 +39,12 @@ nginx web server
 
 ### php-fpm
 
-php-fpm with PHP 7.4 and syslogd.
+php-fpm with PHP 7.4 and rsyslogd.
 
 The php-fpm container comes in two flavours, `standard` and `xdebug`.
 The nginx container takes care of routing the request to the appropriate php-fpm flavour based on if your request needs debugging or not.
 
-Both versions integrate `syslogd` to support PHP's `syslog()`. Syslog is tailed to `stdout` and it is prompted by `docker-compose` in the usual way (`docker-compose logs -f`, `docker-compose up --build`, etc)
+Both versions integrate `rsyslogd` to support PHP's `syslog()`. `/var/log/syslog` is tailed to `stdout` and it is prompted by `docker-compose` in the usual way (`docker-compose logs -f`, `docker-compose up --build`, etc)
 
 ### Sphinx
 

@@ -35,7 +35,7 @@ RUN set -xe; \
         pdo_mysql \
         intl \
     # syslogd
-    && apt-get install -y inetutils-syslogd \
+    && apt-get install -y rsyslog \
     # cleanup
     && pecl clear-cache \
     && rm -rf \
@@ -47,6 +47,8 @@ COPY ./conf/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./conf/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
 RUN mkdir -p /shared/var/run/
+RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
+RUN touch /var/log/syslog
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
