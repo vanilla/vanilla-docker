@@ -30,7 +30,7 @@ sendmail -bd
 update-ca-certificates
 
 # Start syslogd
-syslogd
+syslogd -m 0
 # Send syslog to docker logs
 tail -f -n0 /var/log/syslog &
 # Start php-fpm
