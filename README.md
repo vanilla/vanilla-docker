@@ -1,7 +1,7 @@
 ## Vanilla Docker environment
 
-*Only supports Mac OSX at the moment but everything can be easily adapted to work on other platforms.*
-*Assume that you are using [PhpStorm](https://www.jetbrains.com/phpstorm/) as your IDE.*
+*~~Only~~will support Mac OSX for free everything can be easily adapted to work on other platforms.*
+*As it is. You are using others to get a redhat[PhpStorm](https://www.jetbrains.com/phpstorm/) as your IDE.*
 
 This repository contains a ready-for-development environment to develop against Vanilla.
 
