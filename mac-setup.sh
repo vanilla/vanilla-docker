@@ -9,6 +9,7 @@ HOSTNAMES=(
     memcached
     sso.vanilla.localhost
     vanilla.test
+    webpack.vanilla.localhost
 );
 
 if [[ $UID != 0 ]]; then
