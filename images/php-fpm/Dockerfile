@@ -46,6 +46,9 @@ COPY ./conf/php-fpm.conf /usr/local/etc/php-fpm.conf
 COPY ./conf/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./conf/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
+COPY configure-sendmail.sh /configure-sendmail.sh
+CMD ["/configure-sendmail.sh"]
+
 RUN mkdir -p /shared/var/run/
 RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 RUN touch /var/log/syslog
