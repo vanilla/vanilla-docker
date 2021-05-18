@@ -117,7 +117,6 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
 1. Run `sudo ./mac-setup.sh` which will:
     - Add a self signed certificate `*.vanilla.localhost` to your keychain.
     - Safely update your `/etc/hosts`.
-    - Add `192.0.2.1` as a loopback IP address.
     - Create a docker volume named "datastorage" which will contain the database data.
 1. Run `docker-compose up --build` (It will take a while the first time). You'll know it worked if you see something like
     ```
@@ -156,36 +155,6 @@ You can add as many services as you want that way.
 Generally, there should be documentation inside the .yml file of the service that gives you information about it.
 
 For more information: [understanding-multiple-compose-files](https://docs.docker.com/compose/extends/#understanding-multiple-compose-files)
-
-##### Using your local database
-
-To start all containers except the database one you can use:
-
-```shell
-docker-compose -f docker-compose.yml up --build
-```
-
-This will skip `docker-compose.override.yml`. Note that by doing so you will probably have to add additional configurations to make sure that the database is reachable from the containers.
-
-To address that issue you have 2 ways of doing it:
-- You always have the possibility of using the loopback ip `192.0.2.1` that is installed by the `mac-setup.sh` script if your database is installed directly on your machine.
-- You can also create custom.*.yml file to extends the existing services and add extra-hosts to the services. Example:
-    `custom.dbhost.yml`
-    ```yaml
-    version: "3"
-
-    services:
-        php-fpm:
-            extra_hosts:
-                database: 192.0.2.1
-
-    ```
-    You can then do:
-    ```shell
-    docker-compose -f docker-compose.yml -f custom.dbhost.yml up --build
-    ```
-
-You can also delete the datastorage volume created by `mac-setup.sh` since you won't be using it.
 
 ### Xdebug
 
