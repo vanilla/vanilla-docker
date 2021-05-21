@@ -1,29 +1,56 @@
-version: "3.5"
+version: "3.8"
 
 services:
-    httpd:
+    database:
         build:
-            context: "./images/httpd"
-        container_name: "httpd"
-        depends_on:
-            - "php-fpm"
+            context: "./images/database"
+        container_name: "database"
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_DATABASE: vanilla_dev
         networks:
             - "vanilla_network"
         ports:
-            - "9080:9080"
-            - "9443:9443"
+            - "3306:3306"
         volumes:
-            - "shared:/shared:cached" # allow to use the php-fpm socket
-            - "./logs/httpd:/var/log/httpd:delegated"
-            - "./resources/certificates:/certificates:cached"
-            - "./resources/usr/local/apache2/conf.d:/usr/local/apache2/conf.d:cached"
-            - "../:/srv/vanilla-repositories:cached"
+            - "./logs/database:/var/log/mysql:delegated"
+            - "./resources/etc/mysql/conf.d/:/etc/mysql/conf.d/"
+            - "datastorage:/var/lib/mysql"
+
+    ## Put the following in conf/bootstrap.early.php
+    #    // Cache
+    #    saveToConfig('Cache.Enabled', true); # Toggle this to true/false to enable/disable caching.
+    #    saveToConfig('Cache.Method', 'memcached');
+    #    saveToConfig('Cache.Memcached.Store', ['memcached:11211']);
+    #
+    #    if (c('Cache.Enabled')) {
+    #        if (class_exists('Memcached')) {
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_COMPRESSION, true, false);
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_DISTRIBUTION, Memcached::DISTRIBUTION_CONSISTENT, false);
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_LIBKETAMA_COMPATIBLE, true, false);
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_NO_BLOCK, true, false);
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_TCP_NODELAY, true, false);
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_CONNECT_TIMEOUT, 1000, false);
+    #            saveToConfig('Cache.Memcached.Option.'.Memcached::OPT_SERVER_FAILURE_LIMIT, 2, false);
+    #        } else {
+    #            die('PHP is missing the Memcached extension.');
+    #        }
+    #    }
+    #####
+    memcached:
+        build:
+            context: "./images/memcached"
+        networks:
+            - "vanilla_network"
+        container_name: memcached
+        ports:
+            - "11211:11211"
 
     nginx:
         build:
             context: "./images/nginx"
         # Transform the template into an actual file
-        command: /bin/bash -c "envsubst < /etc/nginx/fastcgi.conf.tpl > /etc/nginx/fastcgi.conf && nginx -g 'daemon off;'"
+        command: /bin/ash -c "envsubst < /etc/nginx/fastcgi.conf.tpl > /etc/nginx/fastcgi.conf && nginx -g 'daemon off;'"
         container_name: "nginx"
         depends_on:
             - "php-fpm"
@@ -51,7 +78,6 @@ services:
             - "8080:8080"
             - "443:443"
         volumes:
-            - "shared:/shared:cached" # allow to use the php-fpm socket
             - "./logs/nginx:/var/log/nginx:delegated"
             - "./resources/certificates:/certificates:cached"
             - "./resources/etc/nginx/conf.d:/etc/nginx/conf.d:cached"
@@ -64,16 +90,11 @@ services:
         build:
             context: "./images/php-fpm"
         container_name: "php-fpm"
-        environment: &php-env
-            - "TEST_BASEURL"
-            - "TEST_DB_HOST"
-            - "TEST_DB_NAME"
-            - "TEST_DB_USER"
-            - "TEST_DB_PASSWORD"
+        depends_on:
+            - "database"
         networks: &php-networks
             - "vanilla_network"
         volumes: &php-volumes
-            - "shared:/shared:cached" # expose php-fpm socket
             - "./logs/php-fpm:/var/log/php-fpm:delegated"
             - "./resources/certificates:/usr/local/share/ca-certificates:cached" # Mount extra certificates
             - "./resources/sphinx:/sphinx:cached" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
@@ -81,14 +102,16 @@ services:
     php-fpm-xdebug:
         build:
             context: "./images/php-fpm"
-            dockerfile: DockerfileXDebug
         container_name: "php-fpm-xdebug"
-        environment: *php-env
+        environment:
+            - "PHP_DEBUG=on"
         networks: *php-networks
         volumes: *php-volumes
 
 volumes:
-    shared:
+    datastorage:
+        # Created by our setup script.
+        external: true
 
 networks:
     vanilla_network:

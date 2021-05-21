@@ -1,52 +1,57 @@
-FROM php:7.4-fpm-buster
+FROM php:7.4-fpm-alpine
 
-RUN set -xe; \
-    apt-get update \
-    && apt-get install -y \
+RUN apk update \
+    && apk add --no-cache \
+        # build
+        gcc make musl-dev php7-dev \
         # for intl extension
-        libicu-dev \
+        icu \
+        icu-dev \
         # for gd
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
+        freetype libjpeg-turbo libpng libwebp libxpm \
+        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libxpm-dev \
         # for mbstring
-        libonig-dev \
+        oniguruma \
+        oniguruma-dev \
         # memchached extension
+        libmemcached \
         libmemcached-dev \
-        # allow mailing to work
-        sendmail \
-        # allow reading of image exif
-        exiftool \
-        # pecl installs
-    && docker-php-ext-install exif \
-    && pecl install memcached \
+        # syslogd
+        rsyslog \
+    # pecl installs
     && pecl install apcu \
+    && pecl install memcached \
+    && pecl install xdebug \
     # enable pecl installed extentions
-    && docker-php-ext-enable memcached \
     && docker-php-ext-enable apcu \
-    && docker-php-ext-enable exif \
+    && docker-php-ext-enable memcached \
     && docker-php-ext-enable opcache \
+    && docker-php-ext-enable xdebug \
     # built in extensions install
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd \
+        --enable-gd \
+        --with-webp \
+        --with-jpeg \
+        --with-xpm \
+        --with-freetype \
     && docker-php-ext-install -j$(nproc) \
+        exif \
         gd \
         mbstring \
         pdo \
         pdo_mysql \
         intl \
-    # syslogd
-    && apt-get install -y rsyslog \
     # cleanup
-    && pecl clear-cache \
-    && rm -rf \
-    /var/lib/apt/lists/* \
-    /usr/src/php/ext/* \
-    /tmp/*
-COPY ./conf/php-fpm.conf /usr/local/etc/php-fpm.conf
+    && apk del \
+        gcc make musl-dev php7-dev \
+        icu-dev \
+        freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libxpm-dev \
+        oniguruma-dev \
+        libmemcached-dev \
+    && pecl clear-cache
 COPY ./conf/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./conf/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
 
-RUN mkdir -p /shared/var/run/
 RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 RUN touch /var/log/syslog
 
