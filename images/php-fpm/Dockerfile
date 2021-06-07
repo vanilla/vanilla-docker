@@ -1,5 +1,7 @@
 FROM php:7.4-fpm-alpine
 
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
 RUN apk update \
     && apk add --no-cache \
         # build
@@ -18,6 +20,8 @@ RUN apk update \
         libmemcached-dev \
         # syslogd
         rsyslog \
+        # iconv
+        gnu-libiconv \
     # pecl installs
     && pecl install apcu \
     && pecl install memcached \
@@ -50,7 +54,7 @@ RUN apk update \
         libmemcached-dev \
     && pecl clear-cache
 COPY ./conf/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
-COPY ./conf/vanilla-docker-sendmail.ini /usr/local/etc/php/conf.d/vanilla-docker-sendmail.ini
+COPY ./conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 RUN touch /var/log/syslog
