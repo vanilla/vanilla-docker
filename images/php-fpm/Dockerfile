@@ -3,6 +3,9 @@ FROM php:7.4-fpm-alpine
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 RUN apk update \
+    # Make sure we use a version of iconv that works.
+    # https://github.com/docker-library/php/issues/240#issuecomment-876464325
+    && apk add gnu-libiconv=1.15-r3 --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ --allow-untrusted \
     && apk add --no-cache \
         # build
         gcc make musl-dev php7-dev \
@@ -20,8 +23,6 @@ RUN apk update \
         libmemcached-dev \
         # syslogd
         rsyslog \
-        # iconv
-        gnu-libiconv \
     # pecl installs
     && pecl install apcu \
     && pecl install memcached \
