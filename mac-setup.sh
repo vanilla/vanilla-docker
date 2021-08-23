@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
 HOSTNAMES=(
-    advanced-embed.vanilla.localhost
+    # Services
     database
+    memcached
+
+    # Sites
+    advanced-embed.vanilla.localhost
     dev.vanilla.localhost
     embed.vanilla.localhost
     vanilla.localhost
-    memcached
     sso.vanilla.localhost
     vanilla.test
     webpack.vanilla.localhost
@@ -34,40 +37,6 @@ CERTIFICATE_PATH2="./resources/certificates/vanilla.localhost.crt";
 if [ ! -f "$CERTIFICATE_PATH2" ]; then
     echo "Missing $CERTIFICATE_PATH2 certificate. Was it renamed or something?";
     exit 1;
-fi
-
-# Loopback 192.0.2.1 to our host (much like 127.0.0.1)
-# See https://en.wikipedia.org/wiki/Reserved_IP_addresses#IPv4
-# Same as "ifconfig lo0 alias 192.0.2.1" but permanent
-LOOPBACK_FILE="/Library/LaunchDaemons/com.runlevel1.lo0.192.0.2.1.plist"
-if [ ! -f "$LOOPBACK_FILE" ]; then
-    cat > $LOOPBACK_FILE <<- EOM
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-      <key>Label</key>
-      <string>com.runlevel1.lo0.192.0.2.1</string>
-      <key>RunAtLoad</key>
-      <true/>
-      <key>ProgramArguments</key>
-      <array>
-          <string>/sbin/ifconfig</string>
-          <string>lo0</string>
-          <string>alias</string>
-          <string>192.0.2.1</string>
-      </array>
-      <key>StandardErrorPath</key>
-      <string>/var/log/loopback-alias.log</string>
-      <key>StandardOutPath</key>
-      <string>/var/log/loopback-alias.log</string>
-  </dict>
-</plist>
-EOM
-    chmod 0644 "$LOOPBACK_FILE"
-    sudo chown root:wheel "$LOOPBACK_FILE"
-    sudo launchctl load "$LOOPBACK_FILE"
-
 fi
 
 # Allows us to use database as the hostname to connect to the database.
