@@ -43,49 +43,9 @@ The nginx container takes care of routing the request to the appropriate php-fpm
 
 Both versions integrate `rsyslogd` to support PHP's `syslog()`. `/var/log/syslog` is tailed to `stdout` and it is prompted by `docker-compose` in the usual way (`docker-compose logs -f`, `docker-compose up --build`, etc)
 
-### Sphinx
+### Sphinx *(removed)*
 
-Sphinx search service (service-sphinx.yml).
-
-#### Installing Sphinx
-
-Before enabling make sure that:
-- Your database is named vanilla_dev
-- You have set `Plugins.Sphinx.Server = sphinx` in your config
-- You have set `Plugins.Sphinx.SphinxAPIDir = /sphinx/` in your config
-- You have enabled the sphinx plugin
-- You symlinked one of the [configs-available](./resources/usr/local/etc/sphinx/configs-available) as sphinx.conf in resources/usr/local/etc/sphinx/conf.d
-- Example from conf.d/: `ln -s configs-available/standard.sphinx.conf sphinx.conf`
-- For unit tests use the everything.sphinx.conf
-
-#### Sphinx unit testing config
-- Ensure you have a test database `vanilla_test`.
-- Ensure you are using the `everything.sphinx.conf` config for sphinx.
-- Ensure that your phpunit.xml and phpunit.dist.xml have the following environmental value:
-`<env name="TEST_SPHINX_HOST" value="sphinx" />`
-
-#### Re-indexing your database
-
-There are a couple of handly scripts to run the re-indexer. You can run them from the command line like so:
-
-```
-docker exec -t sphinx bash /root/index.delta.sh
-docker exec -t sphinx bash /root/index.all.sh
-```
-
-#### Installing the Sphinx indexr crontab
-
-If you need to have Sphinx indexes updated regularly run [install-sphinx-cron.sh](./images/sphinx/root/install-sphinx-cron.sh).
-- by default it will reindex delta indexes every minute and reindex all indexes every 5 min.
-- by default cron jobs hit `sphinx` container
-- if your environment or tasked to be different you need to change  `install-sphinx-cron.sh`
- accordingly
-
- Note that the easiest way to run this script is through docker:
-
- ```
-docker exec -t sphinx bash /root/install-sphinx-cron.sh
- ```
+~~Sphinx search service (service-sphinx.yml).~~ 
 
 ## Setup
 
@@ -143,7 +103,7 @@ Do not forget to run `docker-compose up --build` to start up the services every 
 To run additional services (named service-*.yml) you can specify which .yml file to run like so:
 
 ```shell
-docker-compose -f docker-compose.yml -f docker-compose.override.yml -f service-sphinx.yml up --build
+docker-compose -f docker-compose.yml -f docker-compose.override.yml --build
 ```
 
 You can add as many services as you want that way.
