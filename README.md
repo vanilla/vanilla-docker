@@ -95,7 +95,7 @@ docker exec -t sphinx bash /root/install-sphinx-cron.sh
 
     - Do not forget to tune up the allocated Memory and CPUs. `Docker` > `Preferences` > `Advanced`
 1. Get [Brew, Yarn & Node](https://staff.vanillaforums.com/kb/articles/135-install-node-yarn)
-1. Get [Composer](https://getcomposer.org/) and install it.
+1. Get [Composer](https://getcomposer.org/) v1 and [install it](https://getcomposer.org/download/) making sure to specify installation options that install **v1** composer (e.g. the `--1` version option).
 1. Create a directory for your project. In this example, we'll use `my-vanilla-project`, but you can use any name.
 1. Move into your project directory.
 1. Clone or download [vanilla/vanilla-docker](https://github.com/vanilla/vanilla-docker) into your project directory.
