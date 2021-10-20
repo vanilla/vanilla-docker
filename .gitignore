@@ -34,10 +34,3 @@ _notes
 !/resources/usr/local/etc/php/conf.d/.gitkeep
 /resources/usr/local/etc/php/fpm/pool.d/
 !/resources/usr/local/etc/php/fpm/pool.d/www.conf
-/resources/usr/local/etc/sphinx/conf.d/*
-!/resources/usr/local/etc/sphinx/conf.d/.gitkeep
-/resources/usr/local/etc/sphinx/configs-available/*
-!resources/usr/local/etc/sphinx/configs-available/advanced.sphinx.conf
-!resources/usr/local/etc/sphinx/configs-available/standard.sphinx.conf
-!resources/usr/local/etc/sphinx/configs-available/groups-standard.sphinx.conf
-!resources/usr/local/etc/sphinx/configs-available/knowledge-standard.sphinx.conf

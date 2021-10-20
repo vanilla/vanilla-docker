@@ -97,7 +97,6 @@ services:
         volumes: &php-volumes
             - "./logs/php-fpm:/var/log/php-fpm:delegated"
             - "./resources/certificates:/usr/local/share/ca-certificates:cached" # Mount extra certificates
-            - "./resources/sphinx:/sphinx:cached" # expose sphinx API. We have to do this here because we need to be enable to update the plugin before we can start the container.
             - "../:/srv/vanilla-repositories:cached"
     php-fpm-xdebug:
         build:
