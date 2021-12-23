@@ -75,6 +75,7 @@ Both versions integrate `rsyslogd` to support PHP's `syslog()`. `/var/log/syslog
     - Add a self signed certificate `*.vanilla.localhost` to your keychain.
     - Safely update your `/etc/hosts`.
     - Create a docker volume named "datastorage" which will contain the database data.
+1. Move back into the `vanilla` directory.
 1. Run `docker-compose up --build` (It will take a while the first time). You'll know it worked if you see something like
     ```
     Successfully built…
