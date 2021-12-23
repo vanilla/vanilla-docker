@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
     database:
+        platform: "linux/amd64"
         build:
             context: "./images/database"
         container_name: "database"
