@@ -96,6 +96,7 @@ services:
         networks: &php-networks
             - "vanilla_network"
         volumes: &php-volumes
+            - "./logs/php-syslog:/var/log:delegated"
             - "./logs/php-fpm:/var/log/php-fpm:delegated"
             - "./resources/certificates:/usr/local/share/ca-certificates:cached" # Mount extra certificates
             - "../:/srv/vanilla-repositories:cached"
