@@ -109,6 +109,21 @@ services:
         networks: *php-networks
         volumes: *php-volumes
 
+    #https://docs.imgproxy.net/
+    imgproxy:
+        build:
+            context: "./images/imgproxy"
+        container_name: "imgproxy"
+        networks:
+            - "vanilla_network"
+        ports:
+            - "8600:8080"
+        environment:
+            - "IMGPROXY_IGNORE_SSL_VERIFICATION=${IMGPROXY_IGNORE_SSL_VERIFICATION}"
+            - "IMGPROXY_KEY=${IMGPROXY_KEY}"
+            - "IMGPROXY_SALT=${IMGPROXY_SALT}"
+            - "IMGPROXY_SIGNATURE=${IMGPROXY_SIGNATURE}"
+
 volumes:
     datastorage:
         # Created by our setup script.
