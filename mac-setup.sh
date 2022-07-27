@@ -9,6 +9,8 @@ HOSTNAMES=(
     advanced-embed.vanilla.localhost
     dev.vanilla.localhost
     embed.vanilla.localhost
+    modern-embed.vanilla.localhost
+    modern-embed-hub.vanilla.localhost
     vanilla.localhost
     sso.vanilla.localhost
     vanilla.test
