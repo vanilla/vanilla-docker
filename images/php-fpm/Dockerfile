@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 RUN apk add --update --no-cache $PHPIZE_DEPS\
         # for intl extension
@@ -48,8 +48,9 @@ RUN apk add --update --no-cache $PHPIZE_DEPS\
 COPY ./conf/00-php.ini /usr/local/etc/php/conf.d/00-php.ini
 COPY ./conf/www.conf /usr/local/etc/php-fpm.d/www.conf
 
-RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
 RUN touch /var/log/syslog
+RUN sed -i '/imklog/s/^/#/' /etc/rsyslog.conf
+
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
