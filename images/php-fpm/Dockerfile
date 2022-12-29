@@ -18,7 +18,7 @@ RUN apk add --update --no-cache $PHPIZE_DEPS\
     # pecl installs
     && pecl install apcu \
     && pecl install memcached \
-    && pecl install xdebug-2.9.0 \
+    && pecl install xdebug-3.1.0 \
     # enable pecl installed extentions
     && docker-php-ext-enable apcu \
     && docker-php-ext-enable memcached \
