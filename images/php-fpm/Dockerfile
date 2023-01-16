@@ -15,6 +15,8 @@ RUN apk add --update --no-cache $PHPIZE_DEPS\
         libmemcached-dev \
         # syslogd
         rsyslog \
+        # for xdebug
+        linux-headers \
     # pecl installs
     && pecl install apcu \
     && pecl install memcached \
