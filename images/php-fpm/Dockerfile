@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine
+FROM php:8.1.18-fpm-alpine
 
 RUN apk add --update --no-cache $PHPIZE_DEPS\
         # for intl extension
